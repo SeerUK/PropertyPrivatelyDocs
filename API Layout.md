@@ -1,5 +1,5 @@
 
-# API
+# Property Privately API Resources
 
 Entities that are directly related, and only have context with that relationship are represented fully, with all of the information of that relationship intact. For example: the current user has tokens, and although tokens are entities of their own, they have no meaning outside of the scope of the current user, therefore: `/user/tokens/:tokenId`.
 
