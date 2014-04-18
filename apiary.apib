@@ -28,29 +28,27 @@ The directory is the starting point for the API. When used with a HAL browser it
 ### View Directory [GET]
 
 + Request (application/json)
-
     + Header
-    
             X-API-App-Token: Application key
 
 + Response 200 (application/hal+json)
-
-        {
-          "_links": {
-            "self": {
-              "href": "/"
-            },
-            "pp:properties": {
-              "href": "/properties"
-            },
-            "pp:user": {
-              "href": "/user"
-            },
-            "pp:users": {
-              "href": "/users"
+    + Body
+            {
+              "_links": {
+                "self": {
+                  "href": "/"
+                },
+                "pp:properties": {
+                  "href": "/properties"
+                },
+                "pp:user": {
+                  "href": "/user"
+                },
+                "pp:users": {
+                  "href": "/users"
+                }
+              }
             }
-          }
-        }
 
 # Group User
 
@@ -62,113 +60,186 @@ Resources related to the user in the Property Privately API.
 ### List all Tokens [GET]
 
 + Request (application/json)
-
     + Header
-    
             X-API-App-Token: Application key
             X-API-User-Token: User token
 
-+ Response 200 (application/json)
-
-        {
-            "total": 1,
-            "_links": {
-                "self": {
-                    "href": "/user/tokens"
++ Response 200 (application/hal+json)
+    + Body
+            {
+                "total": 1,
+                "_links": {
+                    "self": {
+                        "href": "/user/tokens"
+                    },
+                    "tokens:token": {
+                        "href": "/user/tokens/{id}",
+                        "templated": true,
+                        "name": "Specific token"
+                    },
+                    "tokens:application": {
+                        "href": "/user/tokens/application/{id}",
+                        "templated": true,
+                        "name": "Application tokens"
+                    },
+                    "user": {
+                        "href": "/user"
+                    }
                 },
-                "tokens:token": {
-                    "href": "/user/tokens/{id}",
-                    "templated": true,
-                    "name": "Specific token"
-                },
-                "tokens:application": {
-                    "href": "/user/tokens/application/{id}",
-                    "templated": true,
-                    "name": "Application tokens"
-                },
-                "user": {
-                    "href": "/user"
-                }
-            },
-            "_embedded": {
-                "tokens": [
-                    {
-                        "id": 1,
-                        "description": "USER_TOKEN_DESCRIPTION",
-                        "token": "USER_TOKEN_TOKEN",
-                        "created": "YYYY-MM-DDTHH:MM:SSZ",
-                        "enabled": true,
-                        "_links": {
-                            "self": {
-                                "href": "/user/tokens/1"
-                            }
-                        },
-                        "_embedded": {
-                            "application": {
-                                "id": 1,
-                                "name": "APPLICATION_NAME",
-                                "description": "APPLICATION_DESCRIPTION",
-                                "created": "YYYY-MM-DDTHH:MM:SSZ",
-                                "enabled": true
+                "_embedded": {
+                    "tokens": [
+                        {
+                            "id": 1,
+                            "description": "USER_TOKEN_DESCRIPTION",
+                            "token": "USER_TOKEN_TOKEN",
+                            "created": "YYYY-MM-DDTHH:MM:SSZ",
+                            "enabled": true,
+                            "_links": {
+                                "self": {
+                                    "href": "/user/tokens/1"
+                                }
+                            },
+                            "_embedded": {
+                                "application": {
+                                    "id": 1,
+                                    "name": "APPLICATION_NAME",
+                                    "description": "APPLICATION_DESCRIPTION",
+                                    "created": "YYYY-MM-DDTHH:MM:SSZ",
+                                    "enabled": true
+                                }
                             }
                         }
-                    }
-                ]
+                    ]
+                }
             }
-        }
 
 ### Create a Token [POST]
 
 Consumer must be authenticated anonymously.
 
 + Request (application/json)
-
     + Header
-    
             X-API-App-Token: Application key 
-
     + Body
-            
             { "username": "User123", "password": "Password123" }
 
 + Response 201 (application/hal+json)
-
-        {
-            "id": 1,
-            "description": "USER_TOKEN_DESCRIPTION",
-            "token": "USER_TOKEN_TOKEN",
-            "created": "YYYY-MM-DDTHH:MM:SSZ",
-            "enabled": true,
-            "_links": {
-                "self": {
-                    "href": "/user/tokens/1"
-                }
-            },
-            "_embedded": {
-                "application": {
-                    "id": 1,
-                    "name": "APPLICATION_NAME",
-                    "description": "APPLICATION_DESCRIPTION",
-                    "created": "YYYY-MM-DDTHH:MM:SSZ",
-                    "enabled": true
+    + Body
+            {
+                "id": 1,
+                "description": "USER_TOKEN_DESCRIPTION",
+                "token": "USER_TOKEN_TOKEN",
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "enabled": true,
+                "_links": {
+                    "self": {
+                        "href": "/user/tokens/1"
+                    }
+                },
+                "_embedded": {
+                    "application": {
+                        "id": 1,
+                        "name": "APPLICATION_NAME",
+                        "description": "APPLICATION_DESCRIPTION",
+                        "created": "YYYY-MM-DDTHH:MM:SSZ",
+                        "enabled": true
+                    }
                 }
             }
-        }
+
+### Remove all Tokens [DELETE]
+
++ Request (application/json)
+    + Header
+            X-API-App-Token: Application key
+            X-API-User-Token: User token
+
++ Response 204
 
 ## User Token [/user/tokens/{id}]
+
 + Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Token to perform action with. Has example value.
+    + id (required, number, `1`) ... Numeric `id` of the Token to perform action with.
 
-### Retrieve a Note [GET]
-+ Response 200 (application/json)
+### Retrieve a Token [GET]
 
++ Request (application/json)
     + Header
+            X-API-App-Token: Application key
+            X-API-User-Token: User token
 
-            X-My-Header: The Value
-
++ Response 200 (application/hal+json)
     + Body
+            {
+                "id": 1,
+                "description": "USER_TOKEN_DESCRIPTION",
+                "token": "USER_TOKEN_TOKEN",
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "enabled": true,
+                "_links": {
+                    "self": {
+                        "href": "/user/tokens/1"
+                    }
+                },https://tools.ietf.org/html/rfc6902
+                "_embedded": {
+                    "application": {
+                        "id": 1,
+                        "name": "APPLICATION_NAME",
+                        "description": "APPLICATION_DESCRIPTION",
+                        "created": "YYYY-MM-DDTHH:MM:SSZ",
+                        "enabled": true
+                    }
+                }
+            }
 
-            { "id": 2, "title": "Pick-up posters from post-office" }
+### Update a Token [PATCH]
 
-### Remove a Note [DELETE]
+Updating a token uses [JSON PATCH](https://tools.ietf.org/html/rfc6902). Patchable properties of a token are:
+
+* `description`
+* `enabled`
+
++ Request (application/json)
+    + Header
+            X-API-App-Token: Application key
+            X-API-User-Token: User token
+    + Body
+            [
+                { "op": "replace", "path": "description", "value": "Example" },
+                { "op": "remove", "path": "description" },
+                { "op": "add", "path": "description", "value": "Example" }
+            ]
+
++ Response 200 (application/hal+json)
+    + Body
+            {
+                "id": 1,
+                "description": "USER_TOKEN_DESCRIPTION",
+                "token": "USER_TOKEN_TOKEN",
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "enabled": true,
+                "_links": {
+                    "self": {
+                        "href": "/user/tokens/1"
+                    }
+                },
+                "_embedded": {
+                    "application": {
+                        "id": 1,
+                        "name": "APPLICATION_NAME",
+                        "description": "APPLICATION_DESCRIPTION",
+                        "created": "YYYY-MM-DDTHH:MM:SSZ",
+                        "enabled": true
+                    }
+                }
+            }
+
+
+### Remove a Token [DELETE]
+
++ Request (application/json)
+    + Header
+            X-API-App-Token: Application key
+            X-API-User-Token: User token
+
 + Response 204
