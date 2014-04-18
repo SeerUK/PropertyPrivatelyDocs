@@ -11,29 +11,37 @@ Entities that are directly related, but have context without that relationship b
 
 ## Authorisation
 
-`/auth                                              [POST]`
+```
+/auth                                               [POST]
+```
 
 ## Current User (Private resources)
 
-`/user                                              [GET, PATCH, DELETE]`
-`/user/applications                                 [GET, POST, DELETE]`
-`/user/applications/:appId                          [GET, PATCH, DELETE]`
-`/user/properties                                   [GET]`
-`/user/tokens                                       [GET, DELETE]`
-`/user/tokens/:tokenId                              [GET, PATCH, DELETE]`
-`/user/tokens/application/:appId                    [GET, DELETE]`
+```
+/user                                               [GET, PATCH, DELETE]
+/user/applications                                  [GET, POST, DELETE]
+/user/applications/:appId                           [GET, PATCH, DELETE]
+/user/properties                                    [GET]
+/user/tokens                                        [GET, DELETE]
+/user/tokens/:tokenId                               [GET, PATCH, DELETE]
+/user/tokens/application/:appId                     [GET, DELETE]
+```
 
 ## Users (Public resources)
 
-`/users                                             [GET]`
-`/users/:user                                       [GET]`
-`/users/:user/properties                            [GET]`
+```
+/users                                              [GET]
+/users/:user                                        [GET]
+/users/:user/properties                             [GET]
+```
 
 ## Properties (Public, and Private when authenticated resources)
 
-`/properties                                        [GET, POST]`
-`/properties/:propId                                [GET, PATCH, DELETE]`
-`/properties/:propId/images                         [GET, POST, DELETE]`
-`/properties/:propId/images/:imageId                [GET, PATCH, DELETE]`
-`/properties/:propId/rooms                          [GET, POST]`
-`/properties/:propId/rooms/:roomId                  [GET, PATCH, DELETE]`
+```
+/properties                                         [GET, POST]
+/properties/:propId                                 [GET, PATCH, DELETE]
+/properties/:propId/images                          [GET, POST, DELETE]
+/properties/:propId/images/:imageId                 [GET, PATCH, DELETE]
+/properties/:propId/rooms                           [GET, POST]
+/properties/:propId/rooms/:roomId                   [GET, PATCH, DELETE]
+```
