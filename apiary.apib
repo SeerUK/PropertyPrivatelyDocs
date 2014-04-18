@@ -1,11 +1,24 @@
 FORMAT: 1A
 HOST: http://api.propertyprivately.co/
 
-# PropertyPrivately
-This API is part of the product for my final year project and dissertation for BSc ICT S/w route. 
-This API is designed to contain the main concepts of REST, and standards that go with REST to aid 
-in API consumption such as HAL in order to practically investigate their application in modern 
-web services.
+# Property Privately API
+
+The Property Privately API is based on REST principles, with support for HAL. This API is part of the product for the final year project and dissertation of Elliot Wright for BSc ICT S/w route. 
+
+This API is designed to contain the main concepts of REST, and standards that go with REST to aid in API consumption such as HAL in order to practically investigate their application in modern web services.
+
+`NOTE: A valid application secret is required to browse the production API. For resources the require full authentication please also specify a valid API key (user token) for the application being used to consume the API.`
+
+## Common Responses
+
+* `200 OK` - The request was successful.
+* `201 Created` - The request has been fulfilled, and a resource has been created.
+* `204 No Content` - The request was successful, but there is no representation to return.
+* `400 Bad Request` - The request could not be fulfilled because it's requirements were not met.
+* `401 Unauthorized` - An authentication attempt has failed.
+* `403 Forbidden` - The user currently authenticated does not have permission to use the resource.
+* `404 Not Found` - Resource was not found.
+* `500 Internal Server Error` - There has been a problem internally.
 
 # Group Security
 Resources related to security in the Property Privately API. 
