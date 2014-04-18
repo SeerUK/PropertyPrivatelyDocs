@@ -2,7 +2,6 @@ FORMAT: 1A
 HOST: http://api.propertyprivately.co/
 
 # Property Privately API
-<a id="intro"></a>
 
 The Property Privately API is based on REST principles, with support for HAL. This API is part of the product for the final year project and dissertation of Elliot Wright for BSc ICT S/w route. 
 
@@ -11,7 +10,6 @@ This API is designed to contain the main concepts of REST, and standards that go
 **NOTE**: A valid application secret is required to browse the production API. For resources the require full authentication please also specify a valid API key (user token) for the application being used to consume the API. (Please see User -> User Tokens Collection -> Create a Token)
 
 ## Common Responses
-<a id="intro-common-responses"></a>
 
 * `200 OK` - The request was successful.
 * `201 Created` - The request has been fulfilled, and a resource has been created.
@@ -22,15 +20,12 @@ This API is designed to contain the main concepts of REST, and standards that go
 * `404 Not Found` - Resource was not found.
 * `500 Internal Server Error` - There has been a problem internally.
 
-# Group Root <a id="root"></a>
-
+# Group Root
 ## Directory [/]
-<a id="root-directory"></a>
 
 The directory is the starting point for the API. When used with a HAL browser it makes getting started with the API exceptionally easy. It links to all of the main sections of the API.
 
 ### Retrieve Directory [GET]
-<a id="root-directory-get"></a>
 
 + Request
     + Header
@@ -63,7 +58,48 @@ Resources related to the user in the Property Privately API.
 
 **NOTE:** Unless specified otherwise, full authentication is required to view the resources in this section.
 
-## Tokens Collection [/user/tokens]
+## User Application Collection [/user/applications]
+### List all Applications [GET]
+
++ Request
+    + Header
+    
+            X-API-App-Token: Application key
+            X-API-User-Token: User token
+
++ Response 200 (application/hal+json)
+    + Body
+    
+            {
+                "total" 1,
+                "_links": {
+                    "self": {
+                        "href": "/user/applications"
+                    },
+                    "user": {
+                        "href": "/user"
+                    }
+                },
+                "_embedded": {
+                    "applications": [
+                        {
+                            "id": 1,
+                            "name": "USER_APPLICATION_NAME",
+                            "description": "USER_APPLICATION_DESCRIPTION",
+                            "token": "USER_APPLICATION_TOKEN",
+                            "created": "YYYY-MM-DDTHH:MM:SSZ",
+                            "enabled": true,
+                            "_links": {
+                                "self": {
+                                    "href": "/user/applications/1"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+
+## User Token Collection [/user/tokens]
 ### List all Tokens [GET]
 
 + Request
@@ -169,7 +205,7 @@ Consumer must be authenticated anonymously.
 
 + Response 204
 
-## Token [/user/tokens/{id}]
+## User Token [/user/tokens/{id}]
 
 + Parameters
     + id (required, number, `1`) ... Numeric `id` of the Token to perform action with.
