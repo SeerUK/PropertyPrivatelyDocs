@@ -19,8 +19,7 @@ Entities that are directly related, but have context without that relationship b
 
 ```
 /user                                               [GET, PATCH, DELETE]
-/user/applications                                  [GET, POST, DELETE]
-/user/applications/:appId                           [GET, PATCH, DELETE]
+/user/applications                                  [GET]
 /user/properties                                    [GET]
 /user/tokens                                        [GET, DELETE]
 /user/tokens/:tokenId                               [GET, PATCH, DELETE]
@@ -35,13 +34,20 @@ Entities that are directly related, but have context without that relationship b
 /users/:user/properties                             [GET]
 ```
 
-### Properties (Public, and Private when authenticated resources)
+### Applications (Public, and *Private* when authenticated resources)
 
 ```
-/properties                                         [GET, POST]
-/properties/:propId                                 [GET, PATCH, DELETE]
-/properties/:propId/images                          [GET, POST, DELETE]
-/properties/:propId/images/:imageId                 [GET, PATCH, DELETE]
-/properties/:propId/rooms                           [GET, POST]
-/properties/:propId/rooms/:roomId                   [GET, PATCH, DELETE]
+/applications                                       [GET, *POST*]
+/applications/:appId                                [GET, *PATCH*, *DELETE*]
+```
+
+### Properties (Public, and *Private* when authenticated resources)
+
+```
+/properties                                         [GET, *POST*]
+/properties/:propId                                 [GET, *PATCH*, *DELETE*]
+/properties/:propId/images                          [GET, *POST*, *DELETE*]
+/properties/:propId/images/:imageId                 [GET, *PATCH*, *DELETE*]
+/properties/:propId/rooms                           [GET, *POST*]
+/properties/:propId/rooms/:roomId                   [GET, *PATCH*, *DELETE*]
 ```
