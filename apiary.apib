@@ -9,7 +9,7 @@ This API is designed to contain the main concepts of REST, and standards that go
 
 **NOTE**: A valid application secret is required to browse the production API. For resources the require full authentication please also specify a valid API key (user token) for the application being used to consume the API. (Please see User -> User Tokens Collection -> Create a Token)
 
-## Common Responses {#common-responses}
+## Common Responses
 
 * `200 OK` - The request was successful.
 * `201 Created` - The request has been fulfilled, and a resource has been created.
@@ -20,12 +20,11 @@ This API is designed to contain the main concepts of REST, and standards that go
 * `404 Not Found` - Resource was not found.
 * `500 Internal Server Error` - There has been a problem internally.
 
-# Group Directory
+# Property Privately API Root [/]
 
 The directory is the starting point for the API. When used with a HAL browser it makes getting started with the API exceptionally easy. It links to all of the main sections of the API.
 
-## Directory [/]
-### View Directory [GET]
+## Retrieve Directory [GET]
 
 + Request (application/json)
     + Header
