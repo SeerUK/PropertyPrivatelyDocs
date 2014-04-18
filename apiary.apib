@@ -7,6 +7,8 @@ The Property Privately API is based on REST principles, with support for HAL. Th
 
 This API is designed to contain the main concepts of REST, and standards that go with REST to aid in API consumption such as HAL in order to practically investigate their application in modern web services.
 
+All resource paths should require the least amount of information possible to represent a resource. That is to say that if you want to see a property for example; you'd only need the property ID, thus; `/properties/:propId`. If however you wanted to see all of the properties of a user, you would have to have the username, and the property ID, thus: `/user/:user/properties/:propId`.
+
 **NOTE**: A valid application secret is required to browse the production API. For resources the require full authentication please also specify a valid API key (user token) for the application being used to consume the API. (Please see User -> User Tokens Collection -> Create a Token)
 
 ## Common Responses
@@ -59,7 +61,7 @@ Resources related to the user in the Property Privately API.
 **NOTE:** Unless specified otherwise, full authentication is required to view the resources in this section.
 
 ## User Application Collection [/user/applications]
-### List all Applications [GET]
+### List your Applications [GET]
 
 + Request
     + Header
@@ -76,6 +78,11 @@ Resources related to the user in the Property Privately API.
                     "self": {
                         "href": "/user/applications"
                     },
+                    "applications:application": {
+                        "href": "/user/applications/{id}",
+                        "templated": true,
+                        "name": "Specific application"
+                    }
                     "user": {
                         "href": "/user"
                     }
@@ -96,6 +103,35 @@ Resources related to the user in the Property Privately API.
                             }
                         }
                     ]
+                }
+            }
+
+## User Application [/user/applications/{id}]
+### Retrieve an Application [GET]
+
++ Request
+    + Header
+    
+            X-API-App-Token: Application key
+            X-API-User-Token: User token
+
++ Response 200 (application/hal+json)
+    + Body 
+    
+            {
+                "id": 1,
+                "name": "USER_APPLICATION_NAME",
+                "description": "USER_APPLICATION_DESCRIPTION",
+                "token": "USER_APPLICATION_TOKEN",
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "enabled": true,
+                "_links": {
+                    "self": {
+                        "href": "/user/applications/1"
+                    },
+                    "user": {
+                        "href": "/user"
+                    }
                 }
             }
 
@@ -125,7 +161,7 @@ Resources related to the user in the Property Privately API.
                     "tokens:application": {
                         "href": "/user/tokens/application/{id}",
                         "templated": true,
-                        "name": "Application tokens"
+                        "name": "Tokens of Application"
                     },
                     "user": {
                         "href": "/user"
