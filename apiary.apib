@@ -7,7 +7,7 @@ The Property Privately API is based on REST principles, with support for HAL. Th
 
 This API is designed to contain the main concepts of REST, and standards that go with REST to aid in API consumption such as HAL in order to practically investigate their application in modern web services.
 
-**NOTE**: A valid application secret is required to browse the production API. For resources the require full authentication please also specify a valid API key (user token) for the application being used to consume the API. (Please see Security -> Create a Token)
+**NOTE**: A valid application secret is required to browse the production API. For resources the require full authentication please also specify a valid API key (user token) for the application being used to consume the API. (Please see User -> User Tokens Collection -> Create a Token)
 
 ## Common Responses
 
@@ -33,28 +33,28 @@ The directory is the starting point for the API. When used with a HAL browser it
     
             X-API-App-Token: Application key
 
-+ Response 200 (application/json)
++ Response 200 (application/hal+json)
 
         {
           "_links": {
             "self": {
-              "href": "/app_dev.php/"
+              "href": "/"
             },
             "pp:properties": {
-              "href": "/app_dev.php/"
+              "href": "/properties"
             },
             "pp:user": {
-              "href": "/app_dev.php/user"
+              "href": "/user"
             },
             "pp:users": {
-              "href": "/app_dev.php/users"
+              "href": "/users"
             }
           }
         }
 
-# Group Security
+# Group User
 
-Resources related to security in the Property Privately API.
+Resources related to the user in the Property Privately API.
 
 **NOTE:** Unless specified otherwise, full authentication is required to view the resources in this section.
 
@@ -70,11 +70,52 @@ Resources related to security in the Property Privately API.
 
 + Response 200 (application/json)
 
-        [{
-          "id": 1, "title": "Jogging in park"
-        }, {
-          "id": 2, "title": "Pick-up posters from post-office"
-        }]
+        {
+            "total": 1,
+            "_links": {
+                "self": {
+                    "href": "/user/tokens"
+                },
+                "tokens:token": {
+                    "href": "/user/tokens/{id}",
+                    "templated": true,
+                    "name": "Specific token"
+                },
+                "tokens:application": {
+                    "href": "/user/tokens/application/{id}",
+                    "templated": true,
+                    "name": "Application tokens"
+                },
+                "user": {
+                    "href": "/user"
+                }
+            },
+            "_embedded": {
+                "tokens": [
+                    {
+                        "id": 1,
+                        "description": "USER_TOKEN_DESCRIPTION",
+                        "token": "USER_TOKEN_TOKEN",
+                        "created": "YYYY-MM-DDTHH:MM:SSZ",
+                        "enabled": true,
+                        "_links": {
+                            "self": {
+                                "href": "/user/tokens/1"
+                            }
+                        },
+                        "_embedded": {
+                            "application": {
+                                "id": 1,
+                                "name": "APPLICATION_NAME",
+                                "description": "APPLICATION_DESCRIPTION",
+                                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                                "enabled": true
+                            }
+                        }
+                    }
+                ]
+            }
+        }
 
 ### Create a Token [POST]
 
@@ -93,39 +134,23 @@ Consumer must be authenticated anonymously.
 + Response 201 (application/hal+json)
 
         {
-            "id": 37,
-            "description": "Token with a description.",
-            "token": "d3698719e5be6ba8a56291ac68e81804ec73c25d16b68430170880bb45ee2291",
-            "created": {
-                "date": "2014-04-16 19:09:40",
-                "timezone_type": 3,
-                "timezone": "Europe/London"
-            },
+            "id": 1,
+            "description": "USER_TOKEN_DESCRIPTION",
+            "token": "USER_TOKEN_TOKEN",
+            "created": "YYYY-MM-DDTHH:MM:SSZ",
             "enabled": true,
             "_links": {
                 "self": {
-                    "href": "/app_dev.php/user/tokens/37"
-                },
-                "application": {
-                    "href": "/app_dev.php/user/applications/3"
+                    "href": "/user/tokens/1"
                 }
             },
             "_embedded": {
                 "application": {
-                    "id": 3,
-                    "name": "Property Privately Console",
-                    "description": "Internal testing application.",
-                    "created": {
-                        "date": "2014-04-16 08:34:38",
-                        "timezone_type": 3,
-                        "timezone": "Europe/London"
-                    },
-                    "enabled": true,
-                    "_links": {
-                        "self": {
-                            "href": "/app_dev.php/applications/3"
-                        }
-                    }
+                    "id": 1,
+                    "name": "APPLICATION_NAME",
+                    "description": "APPLICATION_DESCRIPTION",
+                    "created": "YYYY-MM-DDTHH:MM:SSZ",
+                    "enabled": true
                 }
             }
         }
