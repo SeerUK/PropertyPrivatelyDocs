@@ -32,12 +32,14 @@ The directory is the starting point for the API. When used with a HAL browser it
 ### Retrieve Directory [GET]
 <a id="root-directory-get"></a>
 
-+ Request (application/json)
++ Request
     + Header
+    
             X-API-App-Token: Application key
 
 + Response 200 (application/hal+json)
     + Body
+    
             {
               "_links": {
                 "self": {
@@ -64,13 +66,15 @@ Resources related to the user in the Property Privately API.
 ## Tokens Collection [/user/tokens]
 ### List all Tokens [GET]
 
-+ Request (application/json)
++ Request
     + Header
+    
             X-API-App-Token: Application key
             X-API-User-Token: User token
 
 + Response 200 (application/hal+json)
     + Body
+    
             {
                 "total": 1,
                 "_links": {
@@ -124,12 +128,15 @@ Consumer must be authenticated anonymously.
 
 + Request (application/json)
     + Header
+    
             X-API-App-Token: Application key 
     + Body
+    
             { "username": "User123", "password": "Password123" }
 
 + Response 201 (application/hal+json)
     + Body
+    
             {
                 "id": 1,
                 "description": "USER_TOKEN_DESCRIPTION",
@@ -154,8 +161,9 @@ Consumer must be authenticated anonymously.
 
 ### Remove all Tokens [DELETE]
 
-+ Request (application/json)
++ Request
     + Header
+    
             X-API-App-Token: Application key
             X-API-User-Token: User token
 
@@ -168,13 +176,15 @@ Consumer must be authenticated anonymously.
 
 ### Retrieve a Token [GET]
 
-+ Request (application/json)
++ Request
     + Header
+    
             X-API-App-Token: Application key
             X-API-User-Token: User token
 
 + Response 200 (application/hal+json)
     + Body
+    
             {
                 "id": 1,
                 "description": "USER_TOKEN_DESCRIPTION",
@@ -206,9 +216,11 @@ Updating a token uses [JSON PATCH](https://tools.ietf.org/html/rfc6902). Patchab
 
 + Request (application/json)
     + Header
+    
             X-API-App-Token: Application key
             X-API-User-Token: User token
     + Body
+    
             [
                 { "op": "replace", "path": "description", "value": "Example" },
                 { "op": "remove", "path": "description" },
@@ -217,6 +229,7 @@ Updating a token uses [JSON PATCH](https://tools.ietf.org/html/rfc6902). Patchab
 
 + Response 200 (application/hal+json)
     + Body
+    
             {
                 "id": 1,
                 "description": "USER_TOKEN_DESCRIPTION",
@@ -242,8 +255,9 @@ Updating a token uses [JSON PATCH](https://tools.ietf.org/html/rfc6902). Patchab
 
 ### Remove a Token [DELETE]
 
-+ Request (application/json)
++ Request
     + Header
+    
             X-API-App-Token: Application key
             X-API-User-Token: User token
 
