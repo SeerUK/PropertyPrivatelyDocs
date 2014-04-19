@@ -206,6 +206,11 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
                     "self": {
                         "href": "/user/applications"
                     },
+                    "applications:application": {
+                        "href": "/applications/{id}",
+                        "templated": true,
+                        "name": "Specific Application"
+                    }
                     "user": {
                         "href": "/user"
                     }
@@ -270,7 +275,7 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
 ## Tokens Collection [/user/tokens{?application}]
 
 + Parameters
-    + application (required, number, `1`) ... Numeric `id` of the Application to perform action with.
+    + application (optional, number, `1`) ... Numeric `id` of the Application to perform action with.
 
 ### List the authenticated User's Tokens [GET]
 
@@ -292,7 +297,7 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
                     "tokens:token": {
                         "href": "/user/tokens/{id}",
                         "templated": true,
-                        "name": "Specific token"
+                        "name": "Specific Token"
                     },
                     "tokens:application": {
                         "href": "/user/tokens?application={id}",
