@@ -29,11 +29,6 @@ The directory is the starting point for the API. When used with a HAL browser it
 
 ### Retrieve Directory [GET]
 
-+ Request
-    + Header
-    
-            X-API-App-Token: Application token
-
 + Response 200 (application/hal+json)
     + Body
     
@@ -41,6 +36,12 @@ The directory is the starting point for the API. When used with a HAL browser it
                 "_links": {
                     "self": {
                         "href": "/"
+                    },
+                    "pp:auth": {
+                        "href": "/auth"
+                    },
+                    "pp:applications": {
+                        "href": "/applications"
                     },
                     "pp:properties": {
                         "href": "/properties"
@@ -171,6 +172,9 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
                 "_links": {
                     "self": {
                         "href": "/user/applications"
+                    },
+                    "user": {
+                        "href": "/user"
                     }
                 },
                 "_embedded": {
@@ -285,7 +289,12 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
                                     "name": "APPLICATION_NAME",
                                     "description": "APPLICATION_DESCRIPTION",
                                     "created": "YYYY-MM-DDTHH:MM:SSZ",
-                                    "enabled": true
+                                    "enabled": true,
+                                    "_links": {
+                                        "self": {
+                                            "href": "/applications/1"
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -323,6 +332,9 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
                 "_links": {
                     "self": {
                         "href": "/user/tokens/1"
+                    },
+                    "user": {
+                        "href": "/user"
                     }
                 },
                 "_embedded": {
@@ -331,7 +343,12 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
                         "name": "APPLICATION_NAME",
                         "description": "APPLICATION_DESCRIPTION",
                         "created": "YYYY-MM-DDTHH:MM:SSZ",
-                        "enabled": true
+                        "enabled": true,
+                        "_links": {
+                            "self": {
+                                "href": "/applications/1"
+                            }
+                        }
                     }
                 }
             }
@@ -350,10 +367,12 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
 
 ### Update an authenticated User's Token [PATCH]
 
-Updating a token uses [JSON PATCH](https://tools.ietf.org/html/rfc6902). Patchable properties of a token are:
+Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
 
-* `description`
-* `enabled`
+| Path        | Type    | Required | Value Example | Description         |
+|-------------|---------|----------|---------------|---------------------|
+| description | string  | false    | Office token  | Token description   |
+| enabled     | boolean | false    | true          | If token is enabled |
 
 + Request (application/json)
     + Header
