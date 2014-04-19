@@ -12,7 +12,7 @@ Entities that are directly related, but have context without that relationship b
 /                                                   [GET]
 ```
 
-### Authorisation
+### Authentication
 
 ```
 /auth                                               [POST]
@@ -21,7 +21,7 @@ Entities that are directly related, but have context without that relationship b
 ### Current User (Private resources)
 
 ```
-/user                                               [GET, PATCH, DELETE]
+/user                                               [GET, PATCH]
 /user/applications                                  [GET]
 /user/properties                                    [GET]
 /user/tokens                                        [GET, DELETE]

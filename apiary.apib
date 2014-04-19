@@ -32,7 +32,7 @@ The directory is the starting point for the API. When used with a HAL browser it
 + Request
     + Header
     
-            X-API-App-Token: Application key
+            X-API-App-Token: Application token
 
 + Response 200 (application/hal+json)
     + Body
@@ -64,7 +64,8 @@ To authenticate with the API you first need to retrieve an API user token for th
 + Request (application/json)
     + Header
     
-            X-API-App-Token: Application key 
+            X-API-App-Token: Application token 
+
     + Body
     
             { "username": "User123", "password": "Password123" }
@@ -98,13 +99,108 @@ To authenticate with the API you first need to retrieve an API user token for th
 
 Resources related to the currently authenticated user in the Property Privately API. If you are not authenticated you will recieve a `403 Forbidden`.
 
-## User Applications Collection [/user/applications]
-### List your Applications [GET]
+## User [/user]
+### Retrieve the authenticated User [GET]
 
 + Request
     + Header
     
-            X-API-App-Token: Application key
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
++ Response 200 (application/hal+json)
+    + Body
+    
+            {
+                "id": 1,
+                "username": "USER_USERNAME",
+                "name": "USER_NAME",
+                "location": "USER_LOCATION",
+                "email": "USER_EMAIL",
+                "roles": [
+                    {
+                        "name": "ROLE_NAME",
+                        "role": "ROLE_ROLE"
+                    }
+                ],
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "enabled": true,
+                "_links": {
+                    "self": {
+                        "href": "/user"
+                    },
+                    "applications": {
+                        "href": "/user/applications"
+                    },
+                    "properties": {
+                        "href": "/user/properties"
+                    },
+                    "tokens": {
+                        "href": "/user/tokens"
+                    }
+                }
+            }
+
+### Update the authenticated User [PATCH]
+
+Patchable properties of a User are:
+
+* `name`
+* `location`
+
++ Request
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
+    + Body
+    
+            [
+                { "op": "replace", "path": "name", "value": "John Doe" },
+                { "op": "add", "path": "location", "value": "Leeds, UK" }
+            ]
+
++ Response 200 (application/hal+json)
+    + Body
+    
+            {
+                "id": 1,
+                "username": "USER_USERNAME",
+                "name": "USER_NAME",
+                "location": "USER_LOCATION",
+                "email": "USER_EMAIL",
+                "roles": [
+                    {
+                        "name": "ROLE_NAME",
+                        "role": "ROLE_ROLE"
+                    }
+                ],
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "enabled": true,
+                "_links": {
+                    "self": {
+                        "href": "/user"
+                    },
+                    "applications": {
+                        "href": "/user/applications"
+                    },
+                    "properties": {
+                        "href": "/user/properties"
+                    },
+                    "tokens": {
+                        "href": "/user/tokens"
+                    }
+                }
+            }
+
+## User Applications Collection [/user/applications]
+### List the authenticated Users' Applications [GET]
+
++ Request
+    + Header
+    
+            X-API-App-Token: Application token
             X-API-User-Token: User token
 
 + Response 200 (application/hal+json)
@@ -137,12 +233,12 @@ Resources related to the currently authenticated user in the Property Privately 
             }
 
 ## User Properties Collection [/user/properties]
-### List your Properties (TODO) [GET]
+### List the authenticated Users' Properties (TODO) [GET]
 
 + Request
     + Header
     
-            X-API-App-Token: Application key
+            X-API-App-Token: Application token
             X-API-User-Token: User token
 
 + Response 200 (application/hal+json)
@@ -179,12 +275,12 @@ Resources related to the currently authenticated user in the Property Privately 
 + Parameters
     + application (required, number, `1`) ... Numeric `id` of the Application to perform action with.
 
-### List all Tokens [GET]
+### List the authenticated Users' Tokens [GET]
 
 + Request
     + Header
     
-            X-API-App-Token: Application key
+            X-API-App-Token: Application token
             X-API-User-Token: User token
 
 + Response 200 (application/hal+json)
@@ -237,27 +333,27 @@ Resources related to the currently authenticated user in the Property Privately 
                 }
             }
 
-### Remove all Tokens [DELETE]
+### Remove the authenticated Users' Tokens [DELETE]
 
 + Request
     + Header
     
-            X-API-App-Token: Application key
+            X-API-App-Token: Application token
             X-API-User-Token: User token
 
 + Response 204
 
-## User Token [/user/tokens/{id}]
+## Authenticated Users' Token [/user/tokens/{id}]
 
 + Parameters
     + id (required, number, `1`) ... Numeric `id` of the Token to perform action with.
 
-### Retrieve a Token [GET]
+### Retrieve an authenticated Users' Token [GET]
 
 + Request
     + Header
     
-            X-API-App-Token: Application key
+            X-API-App-Token: Application token
             X-API-User-Token: User token
 
 + Response 200 (application/hal+json)
@@ -285,7 +381,7 @@ Resources related to the currently authenticated user in the Property Privately 
                 }
             }
 
-### Update a Token [PATCH]
+### Update an authenticated Users' Token [PATCH]
 
 Updating a token uses [JSON PATCH](https://tools.ietf.org/html/rfc6902). Patchable properties of a token are:
 
@@ -295,8 +391,9 @@ Updating a token uses [JSON PATCH](https://tools.ietf.org/html/rfc6902). Patchab
 + Request (application/json)
     + Header
     
-            X-API-App-Token: Application key
+            X-API-App-Token: Application token
             X-API-User-Token: User token
+
     + Body
     
             [
@@ -331,12 +428,12 @@ Updating a token uses [JSON PATCH](https://tools.ietf.org/html/rfc6902). Patchab
             }
 
 
-### Remove a Token [DELETE]
+### Remove an authenticated Users' Token [DELETE]
 
 + Request
     + Header
     
-            X-API-App-Token: Application key
+            X-API-App-Token: Application token
             X-API-User-Token: User token
 
 + Response 204
