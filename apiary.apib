@@ -211,9 +211,6 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
                         "templated": true,
                         "name": "Specific Application"
                     }
-                    "user": {
-                        "href": "/user"
-                    }
                 },
                 "_embedded": {
                     "applications": [
@@ -303,9 +300,6 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
                         "href": "/user/tokens?application={id}",
                         "templated": true,
                         "name": "Tokens filtered by Application"
-                    },
-                    "user": {
-                        "href": "/user"
                     }
                 },
                 "_embedded": {
@@ -502,3 +496,125 @@ The users directory provides links for accessing user resources.
                     }
                 }
             }
+
+## User Properties [/user/{username}/properties]
+
++ Parameters
+    + username (required, string, `User123`) ... String `username` of the User to perform action with.
+
+### Retrieve a User's Properties [GET]
+
++ Response 200
+    + Body
+    
+            {
+                "todo": "NYI"
+            }
+
+# Group Applications
+
+Public resources related to applications.
+
+## Directory [/applications]
+
+The applications directory provides links for accessing application resources.
+
+### Retrieve Directory [GET]
+
++ Response 200
+    + Body
+    
+            {
+                "_links": {
+                    "self": {
+                        "href": "/applications"
+                    },
+                    "applications:application": {
+                        "href": "/applications/{id}",
+                        "templated": true
+                    }
+                }
+            }
+
+## Application [/applications/{id}]
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Application to perform action with.
+
+### Retrieve an Application [GET]
+
+*NOTE*: Authentication is not required for this resource, therefore the request headers do not *need* to be sent. For security; if the consumer of the API is authenticated as the owner of an Application the `token` of the Application will be displayed in the response. Otherwise, no `token` field shall be present.
+
++ Request
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
++ Response 200
+    + Body
+    
+            {
+                "id": 1,
+                "name": "APPLICATION_NAME",
+                "description": "APPLICATION_DESCRIPTION",
+                "token": "APPLICATION_TOKEN",
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "enabled": true,
+                "_links": {
+                    "self": {
+                        "href": "/applications/1"
+                    }
+                }
+            }
+
+### Update an Application [PATCH]
+
+Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
+
+| Path        | Type    | Required | Value Example | Description             |
+|-------------|---------|----------|---------------|-------------------------|
+| name        | string  | false    | Test app      | App description         |
+| description | string  | false    | For testing   | App description         |
+| enabled     | boolean | false    | true          | If the app is enabled   |
+
++ Request
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
+    + Body
+    
+            [
+                { "op": "replace", "path": "name", "value": "John Doe" },
+                { "op": "add", "path": "location", "value": "Leeds, UK" }
+            ]
+
++ Response 200
+    + Body
+    
+            {
+                "id": 1,
+                "name": "APPLICATION_NAME",
+                "description": "APPLICATION_DESCRIPTION",
+                "token": "APPLICATION_TOKEN",
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "enabled": true,
+                "_links": {
+                    "self": {
+                        "href": "/applications/1"
+                    }
+                }
+            }
+
+
+### Remove an Application [DELETE]
+
++ Request
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
++ Response 204
