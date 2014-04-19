@@ -73,7 +73,37 @@ To authenticate with the API you first need to retrieve an API user token for th
 
 + Response 201
     
-    [Token][]
+    + Body
+    
+            {
+                "id": 1,
+                "description": "USER_TOKEN_DESCRIPTION",
+                "token": "USER_TOKEN_TOKEN",
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "enabled": true,
+                "_links": {
+                    "self": {
+                        "href": "/user/tokens/1"
+                    },
+                    "user": {
+                        "href": "/user"
+                    }
+                },
+                "_embedded": {
+                    "application": {
+                        "id": 1,
+                        "name": "APPLICATION_NAME",
+                        "description": "APPLICATION_DESCRIPTION",
+                        "created": "YYYY-MM-DDTHH:MM:SSZ",
+                        "enabled": true,
+                        "_links": {
+                            "self": {
+                                "href": "/applications/1"
+                            }
+                        }
+                    }
+                }
+            }
 
 # Group User
 
