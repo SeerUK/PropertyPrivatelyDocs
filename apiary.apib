@@ -143,10 +143,12 @@ Resources related to the currently authenticated user in the Property Privately 
 
 ### Update the authenticated User [PATCH]
 
-Patchable properties of a User are:
+Available JSON PATCH paths:
 
-* `name`
-* `location`
+| Path     | Type   | Required | Example   | Description              |
+|----------|--------|----------|-----------|--------------------------|
+| name     | string | false    | John Doe  | The real name of a user  |
+| location | string | false    | Leeds, UK | The location of the user |
 
 + Request
     + Header
