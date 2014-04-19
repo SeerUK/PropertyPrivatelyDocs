@@ -71,8 +71,7 @@ To authenticate with the API you first need to retrieve an API user token for th
     
             { "username": "User123", "password": "Password123" }
 
-+ Response 201
-    
++ Response 201 (application/hal+json)
     + Body
     
             {
@@ -168,7 +167,7 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
 | name     | string | false    | John Doe        | The real name of a user  |
 | location | string | false    | Leeds, UK       | The location of the user |
 
-+ Request
++ Request (application/json)
     + Header
     
             X-API-App-Token: Application token
@@ -572,7 +571,7 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
 | description | string  | false    | For testing   | App description         |
 | enabled     | boolean | false    | true          | If the app is enabled   |
 
-+ Request
++ Request (application/json)
     + Header
     
             X-API-App-Token: Application token
@@ -585,7 +584,7 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
                 { "op": "add", "path": "location", "value": "Leeds, UK" }
             ]
 
-+ Response 200
++ Response 200 (application/hal+json)
     + Body
     
             {
