@@ -6,19 +6,19 @@ Entities that are directly related, but have context without that relationship b
 
 ---
 
-### Directory
+### Directory Y
 
 ```
 /                                                   [GET]
 ```
 
-### Authentication
+### Authentication Y
 
 ```
 /auth                                               [POST]
 ```
 
-### Current User (Private resources)
+### Current User (Private resources) Y
 
 ```
 /user                                               [GET, PATCH]

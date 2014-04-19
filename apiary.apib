@@ -85,6 +85,9 @@ To authenticate with the API you first need to retrieve an API user token for th
                     "self": {
                         "href": "/user/tokens/1"
                     },
+                    "application": {
+                        "href": "/applications/1"
+                    },
                     "user": {
                         "href": "/user"
                     }
@@ -107,7 +110,7 @@ To authenticate with the API you first need to retrieve an API user token for th
 
 # Group User
 
-Resources related to the currently authenticated user in the Property Privately API. If you are not authenticated you will recieve a `403 Forbidden`.
+Resources related to the currently authenticated user. If you are not authenticated you will recieve a `403 Forbidden`.
 
 ## User [/user]
 
@@ -135,13 +138,13 @@ Resources related to the currently authenticated user in the Property Privately 
                     "self": {
                         "href": "/user"
                     },
-                    "applications": {
+                    "user:applications": {
                         "href": "/user/applications"
                     },
-                    "properties": {
+                    "user:properties": {
                         "href": "/user/properties"
                     },
-                    "tokens": {
+                    "user:tokens": {
                         "href": "/user/tokens"
                     }
                 }
@@ -363,6 +366,9 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
                     "self": {
                         "href": "/user/tokens/1"
                     },
+                    "application": {
+                        "href": "/applications/1"
+                    },
                     "user": {
                         "href": "/user"
                     }
@@ -432,3 +438,62 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
             X-API-User-Token: User token
 
 + Response 204
+
+# Group Users
+
+Public resources related to users. Collections in this section only contain publically accessible resources.
+
+## Directory [/users]
+
+The users directory provides links for accessing user resources.
+
+### Retrieve Directory [GET]
+
++ Response 200
+    + Body
+    
+            {
+                "_links": {
+                    "self": {
+                        "href": "/users"
+                    },
+                    "users:user": {
+                        "href": "/users/{username}",
+                        "templated": true
+                    }
+                }
+            }
+
+## User [/users/{username}]
+
++ Parameters
+    + username (required, string, `User123`) ... String `username` of the User to perform action with.
+
+### Retrieve a User [GET]
+
++ Response 200
+    + Body
+    
+            {
+                "id": 1,
+                "username": "USER_USERNAME",
+                "name": "USER_NAME",
+                "location": "USER_LOCATION",
+                "email": "USER_EMAIL",
+                "roles": [
+                    {
+                        "name": "ROLE_NAME",
+                        "role": "ROLE_ROLE"
+                    }
+                ],
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "enabled": true,
+                "_links": {
+                    "self": {
+                        "href": "/users/USER_USERNAME"
+                    },
+                    "users:properties": {
+                        "href": "/users/USER_USERNAME/properties"
+                    }
+                }
+            }
