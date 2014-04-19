@@ -195,7 +195,7 @@ Patchable properties of a User are:
             }
 
 ## User Applications Collection [/user/applications]
-### List the authenticated Users' Applications [GET]
+### List the authenticated User's Applications [GET]
 
 + Request
     + Header
@@ -233,7 +233,7 @@ Patchable properties of a User are:
             }
 
 ## User Properties Collection [/user/properties]
-### List the authenticated Users' Properties (TODO) [GET]
+### List the authenticated User's Properties (TODO) [GET]
 
 + Request
     + Header
@@ -270,12 +270,12 @@ Patchable properties of a User are:
                 }
             }
 
-## User Token Collection [/user/tokens{?application}]
+## Authenticated User's Token Collection [/user/tokens{?application}]
 
 + Parameters
     + application (required, number, `1`) ... Numeric `id` of the Application to perform action with.
 
-### List the authenticated Users' Tokens [GET]
+### List the authenticated User's Tokens [GET]
 
 + Request
     + Header
@@ -333,7 +333,7 @@ Patchable properties of a User are:
                 }
             }
 
-### Remove the authenticated Users' Tokens [DELETE]
+### Remove the authenticated User's Tokens [DELETE]
 
 + Request
     + Header
@@ -343,12 +343,12 @@ Patchable properties of a User are:
 
 + Response 204
 
-## Authenticated Users' Token [/user/tokens/{id}]
+## Authenticated User's Token [/user/tokens/{id}]
 
 + Parameters
     + id (required, number, `1`) ... Numeric `id` of the Token to perform action with.
 
-### Retrieve an authenticated Users' Token [GET]
+### Retrieve an authenticated User's Token [GET]
 
 + Request
     + Header
@@ -381,7 +381,7 @@ Patchable properties of a User are:
                 }
             }
 
-### Update an authenticated Users' Token [PATCH]
+### Update an authenticated User's Token [PATCH]
 
 Updating a token uses [JSON PATCH](https://tools.ietf.org/html/rfc6902). Patchable properties of a token are:
 
@@ -428,7 +428,7 @@ Updating a token uses [JSON PATCH](https://tools.ietf.org/html/rfc6902). Patchab
             }
 
 
-### Remove an authenticated Users' Token [DELETE]
+### Remove an authenticated User's Token [DELETE]
 
 + Request
     + Header
