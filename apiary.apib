@@ -70,30 +70,9 @@ To authenticate with the API you first need to retrieve an API user token for th
     
             { "username": "User123", "password": "Password123" }
 
-+ Response 201 (application/hal+json)
-    + Body
++ Response 201
     
-            {
-                "id": 1,
-                "description": "USER_TOKEN_DESCRIPTION",
-                "token": "USER_TOKEN_TOKEN",
-                "created": "YYYY-MM-DDTHH:MM:SSZ",
-                "enabled": true,
-                "_links": {
-                    "self": {
-                        "href": "/user/tokens/1"
-                    }
-                },
-                "_embedded": {
-                    "application": {
-                        "id": 1,
-                        "name": "APPLICATION_NAME",
-                        "description": "APPLICATION_DESCRIPTION",
-                        "created": "YYYY-MM-DDTHH:MM:SSZ",
-                        "enabled": true
-                    }
-                }
-            }
+    [Token][]
 
 # Group User
 
@@ -103,7 +82,7 @@ Resources related to the currently authenticated user in the Property Privately 
 
 + Model (application/hal+json)
 
-    HAL+JSON representation of a User resource.    
+    HAL+JSON representation of a User resource.
 
     + Body
     
@@ -329,15 +308,10 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
 + Parameters
     + id (required, number, `1`) ... Numeric `id` of the Token to perform action with.
 
-### Retrieve an authenticated User's Token [GET]
++ Model (application/hal+json)
 
-+ Request
-    + Header
-    
-            X-API-App-Token: Application token
-            X-API-User-Token: User token
+    HAL+JSON representation of a User resource.
 
-+ Response 200 (application/hal+json)
     + Body
     
             {
@@ -361,6 +335,18 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
                     }
                 }
             }
+
+### Retrieve an authenticated User's Token [GET]
+
++ Request
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
++ Response 200
+    
+    [Token][]
 
 ### Update an authenticated User's Token [PATCH]
 
@@ -383,30 +369,9 @@ Updating a token uses [JSON PATCH](https://tools.ietf.org/html/rfc6902). Patchab
                 { "op": "add", "path": "description", "value": "Example" }
             ]
 
-+ Response 200 (application/hal+json)
-    + Body
++ Response 200
     
-            {
-                "id": 1,
-                "description": "USER_TOKEN_DESCRIPTION",
-                "token": "USER_TOKEN_TOKEN",
-                "created": "YYYY-MM-DDTHH:MM:SSZ",
-                "enabled": true,
-                "_links": {
-                    "self": {
-                        "href": "/user/tokens/1"
-                    }
-                },
-                "_embedded": {
-                    "application": {
-                        "id": 1,
-                        "name": "APPLICATION_NAME",
-                        "description": "APPLICATION_DESCRIPTION",
-                        "created": "YYYY-MM-DDTHH:MM:SSZ",
-                        "enabled": true
-                    }
-                }
-            }
+    [Token][]
 
 
 ### Remove an authenticated User's Token [DELETE]
