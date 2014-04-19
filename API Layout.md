@@ -6,6 +6,12 @@ Entities that are directly related, but have context without that relationship b
 
 ---
 
+### Directory
+
+```
+/                                                   [GET]
+```
+
 ### Authorisation
 
 ```

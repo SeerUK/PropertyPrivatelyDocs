@@ -38,165 +38,28 @@ The directory is the starting point for the API. When used with a HAL browser it
     + Body
     
             {
-              "_links": {
-                "self": {
-                  "href": "/"
-                },
-                "pp:properties": {
-                  "href": "/properties"
-                },
-                "pp:user": {
-                  "href": "/user"
-                },
-                "pp:users": {
-                  "href": "/users"
-                }
-              }
-            }
-
-# Group User
-
-Resources related to the user in the Property Privately API.
-
-**NOTE:** Unless specified otherwise, full authentication is required to view the resources in this section.
-
-## User Application Collection [/user/applications]
-### List your Applications [GET]
-
-+ Request
-    + Header
-    
-            X-API-App-Token: Application key
-            X-API-User-Token: User token
-
-+ Response 200 (application/hal+json)
-    + Body
-    
-            {
-                "total" 1,
                 "_links": {
                     "self": {
-                        "href": "/user/applications"
+                        "href": "/"
                     },
-                    "applications:application": {
-                        "href": "/user/applications/{id}",
-                        "templated": true,
-                        "name": "Specific application"
-                    }
-                    "user": {
-                        "href": "/user"
-                    }
-                },
-                "_embedded": {
-                    "applications": [
-                        {
-                            "id": 1,
-                            "name": "USER_APPLICATION_NAME",
-                            "description": "USER_APPLICATION_DESCRIPTION",
-                            "token": "USER_APPLICATION_TOKEN",
-                            "created": "YYYY-MM-DDTHH:MM:SSZ",
-                            "enabled": true,
-                            "_links": {
-                                "self": {
-                                    "href": "/user/applications/1"
-                                }
-                            }
-                        }
-                    ]
-                }
-            }
-
-## User Application [/user/applications/{id}]
-### Retrieve an Application [GET]
-
-+ Request
-    + Header
-    
-            X-API-App-Token: Application key
-            X-API-User-Token: User token
-
-+ Response 200 (application/hal+json)
-    + Body 
-    
-            {
-                "id": 1,
-                "name": "USER_APPLICATION_NAME",
-                "description": "USER_APPLICATION_DESCRIPTION",
-                "token": "USER_APPLICATION_TOKEN",
-                "created": "YYYY-MM-DDTHH:MM:SSZ",
-                "enabled": true,
-                "_links": {
-                    "self": {
-                        "href": "/user/applications/1"
+                    "pp:properties": {
+                        "href": "/properties"
                     },
-                    "user": {
+                    "pp:user": {
                         "href": "/user"
+                    },
+                    "pp:users": {
+                        "href": "/users"
                     }
                 }
             }
 
-## User Token Collection [/user/tokens]
-### List all Tokens [GET]
+# Group Authentication
 
-+ Request
-    + Header
-    
-            X-API-App-Token: Application key
-            X-API-User-Token: User token
+To authenticate with the API you first need to retrieve an API user token for the application you're currently using. Before authenticating with the API you must have a valid, enabled application token. 
 
-+ Response 200 (application/hal+json)
-    + Body
-    
-            {
-                "total": 1,
-                "_links": {
-                    "self": {
-                        "href": "/user/tokens"
-                    },
-                    "tokens:token": {
-                        "href": "/user/tokens/{id}",
-                        "templated": true,
-                        "name": "Specific token"
-                    },
-                    "tokens:application": {
-                        "href": "/user/tokens/application/{id}",
-                        "templated": true,
-                        "name": "Tokens of Application"
-                    },
-                    "user": {
-                        "href": "/user"
-                    }
-                },
-                "_embedded": {
-                    "tokens": [
-                        {
-                            "id": 1,
-                            "description": "USER_TOKEN_DESCRIPTION",
-                            "token": "USER_TOKEN_TOKEN",
-                            "created": "YYYY-MM-DDTHH:MM:SSZ",
-                            "enabled": true,
-                            "_links": {
-                                "self": {
-                                    "href": "/user/tokens/1"
-                                }
-                            },
-                            "_embedded": {
-                                "application": {
-                                    "id": 1,
-                                    "name": "APPLICATION_NAME",
-                                    "description": "APPLICATION_DESCRIPTION",
-                                    "created": "YYYY-MM-DDTHH:MM:SSZ",
-                                    "enabled": true
-                                }
-                            }
-                        }
-                    ]
-                }
-            }
-
-### Create a Token [POST]
-
-Consumer must be authenticated anonymously.
+## Authenticate
+### Create a User Token [POST]
 
 + Request (application/json)
     + Header
@@ -228,6 +91,149 @@ Consumer must be authenticated anonymously.
                         "created": "YYYY-MM-DDTHH:MM:SSZ",
                         "enabled": true
                     }
+                }
+            }
+
+# Group User
+
+Resources related to the currently authenticated user in the Property Privately API. If you are not authenticated you will recieve a `403 Forbidden`.
+
+## User Applications Collection [/user/applications]
+### List your Applications [GET]
+
++ Request
+    + Header
+    
+            X-API-App-Token: Application key
+            X-API-User-Token: User token
+
++ Response 200 (application/hal+json)
+    + Body
+    
+            {
+                "total" 1,
+                "_links": {
+                    "self": {
+                        "href": "/user/applications"
+                    }
+                },
+                "_embedded": {
+                    "applications": [
+                        {
+                            "id": 1,
+                            "name": "USER_APPLICATION_NAME",
+                            "description": "USER_APPLICATION_DESCRIPTION",
+                            "token": "USER_APPLICATION_TOKEN",
+                            "created": "YYYY-MM-DDTHH:MM:SSZ",
+                            "enabled": true,
+                            "_links": {
+                                "self": {
+                                    "href": "/applications/1"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+
+## User Properties Collection [/user/properties]
+### List your Properties (TODO) [GET]
+
++ Request
+    + Header
+    
+            X-API-App-Token: Application key
+            X-API-User-Token: User token
+
++ Response 200 (application/hal+json)
+    + Body 
+    
+            {
+                "total" 1,
+                "_links": {
+                    "self": {
+                        "href": "/user/applications"
+                    }
+                },
+                "_embedded": {
+                    "properties": [
+                        {
+                            "id": 1,
+                            "name": "USER_APPLICATION_NAME",
+                            "description": "USER_APPLICATION_DESCRIPTION",
+                            "token": "USER_APPLICATION_TOKEN",
+                            "created": "YYYY-MM-DDTHH:MM:SSZ",
+                            "enabled": true,
+                            "_links": {
+                                "self": {
+                                    "href": "/applications/1"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+
+## User Token Collection [/user/tokens{?application}]
+
++ Parameters
+    + application (required, number, `1`) ... Numeric `id` of the Application to perform action with.
+
+### List all Tokens [GET]
+
++ Request
+    + Header
+    
+            X-API-App-Token: Application key
+            X-API-User-Token: User token
+
++ Response 200 (application/hal+json)
+    + Body
+    
+            {
+                "total": 1,
+                "_links": {
+                    "self": {
+                        "href": "/user/tokens"
+                    },
+                    "tokens:token": {
+                        "href": "/user/tokens/{id}",
+                        "templated": true,
+                        "name": "Specific token"
+                    },
+                    "tokens:application": {
+                        "href": "/user/tokens?application={id}",
+                        "templated": true,
+                        "name": "Tokens filtered by Application"
+                    },
+                    "user": {
+                        "href": "/user"
+                    }
+                },
+                "_embedded": {
+                    "tokens": [
+                        {
+                            "id": 1,
+                            "description": "USER_TOKEN_DESCRIPTION",
+                            "token": "USER_TOKEN_TOKEN",
+                            "created": "YYYY-MM-DDTHH:MM:SSZ",
+                            "enabled": true,
+                            "_links": {
+                                "self": {
+                                    "href": "/user/tokens/1"
+                                }
+                            },
+                            "_embedded": {
+                                "application": {
+                                    "id": 1,
+                                    "name": "APPLICATION_NAME",
+                                    "description": "APPLICATION_DESCRIPTION",
+                                    "created": "YYYY-MM-DDTHH:MM:SSZ",
+                                    "enabled": true
+                                }
+                            }
+                        }
+                    ]
                 }
             }
 
