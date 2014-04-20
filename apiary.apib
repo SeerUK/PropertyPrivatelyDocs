@@ -529,6 +529,45 @@ The applications directory provides links for accessing application resources.
                 }
             }
 
+### Create an Application [POST]
+
+Request body parameters:
+
+| Name        | Type   | Required | Value Example | Description         |
+|-------------|--------|----------|---------------|---------------------|
+| name        | string | true     | Test app      | App name            |
+| description | string | false    | Test app desc | App description     |
+
++ Request (application/json)
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
+    + Body
+    
+            {
+                "name": "APPLICATION_NAME",
+                "description": "APPLICATION_DESCRIPTION"
+            }
+
++ Response 201 (application/hal+json)
+    + Body
+    
+            {
+                "id": 1,
+                "name": "APPLICATION_NAME",
+                "description": "APPLICATION_DESCRIPTION",
+                "token": "APPLICATION_TOKEN",
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "enabled": true,
+                "_links": {
+                    "self": {
+                        "href": "/applications/1"
+                    }
+                }
+            }
+
 ## Application [/applications/{id}]
 
 + Parameters
