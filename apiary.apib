@@ -287,15 +287,15 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
                     "self": {
                         "href": "/user/tokens"
                     },
-                    "tokens:token": {
-                        "href": "/user/tokens/{id}",
-                        "templated": true,
-                        "name": "Specific Token"
-                    },
                     "tokens:application": {
                         "href": "/user/tokens?application={id}",
                         "templated": true,
                         "name": "Tokens filtered by Application"
+                    },
+                    "tokens:token": {
+                        "href": "/user/tokens/{id}",
+                        "templated": true,
+                        "name": "Specific Token"
                     }
                 },
                 "_embedded": {
@@ -309,6 +309,12 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
                             "_links": {
                                 "self": {
                                     "href": "/user/tokens/1"
+                                },
+                                token:application: {
+                                    href: "/applications/1"
+                                },
+                                token:user: {
+                                    href: "/users/1"
                                 }
                             },
                             "_embedded": {
