@@ -23,10 +23,10 @@ All resource paths should require the least amount of information possible to re
 * `500 Internal Server Error` - There has been a problem internally.
 
 # Group Root
-## Directory [/]
 
-The directory is the starting point for the API. When used with a HAL browser it makes getting started with the API exceptionally easy. It links to all of the main sections of the API.
+The root is the starting point for the API. When used with a HAL browser it makes getting started with the API exceptionally easy. It links to all of the main sections of the API.
 
+## Root [/]
 ### Retrieve Directory [GET]
 
 + Response 200 (application/hal+json)
@@ -435,10 +435,7 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
 
 Public resources related to users. Collections in this section only contain publically accessible resources.
 
-## Directory [/users]
-
-The users directory provides links for accessing user resources.
-
+## Root [/users]
 ### Retrieve Directory [GET]
 
 + Response 200 (application/hal+json)
