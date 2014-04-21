@@ -459,6 +459,52 @@ Public resources related to users. Collections in this section only contain publ
                 }
             }
 
+### Create a User [POST]
+
++ Request (application/json)
+    + Header
+    
+            X-API-App-Token: Application token
+
+    + Body
+    
+            {
+                "username": "USER_USERNAME",
+                "email": "USER_EMAIL",
+                "password": "USER_PASSWORD",
+                "person": {
+                    "name": "PERSON_NAME",
+                    "location": "PERSON_LOCATION"
+                }
+            }
+
++ Response 201 (application/hal+json)
+    + Body
+    
+            {
+                "id": 1,
+                "username": "USER_USERNAME",
+                "email": "USER_EMAIL",
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "enabled": true,
+                "name": "PERSON_NAME",
+                "location": "PERSON_LOCATION",
+                "roles": [
+                    {
+                        "name": "ROLE_NAME",
+                        "role": "ROLE_ROLE"
+                    }
+                ],
+                "_links": {
+                    "self": {
+                        "href": "/users/USER_USERNAME"
+                    },
+                    "users:properties": {
+                        "href": "/users/USER_USERNAME/properties"
+                    }
+                }
+            }
+
 ## User [/users/{username}]
 
 + Parameters
@@ -472,17 +518,17 @@ Public resources related to users. Collections in this section only contain publ
             {
                 "id": 1,
                 "username": "USER_USERNAME",
-                "name": "USER_NAME",
-                "location": "USER_LOCATION",
                 "email": "USER_EMAIL",
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "enabled": true,
+                "name": "PERSON_NAME",
+                "location": "PERSON_LOCATION",
                 "roles": [
                     {
                         "name": "ROLE_NAME",
                         "role": "ROLE_ROLE"
                     }
                 ],
-                "created": "YYYY-MM-DDTHH:MM:SSZ",
-                "enabled": true,
                 "_links": {
                     "self": {
                         "href": "/users/USER_USERNAME"
