@@ -76,7 +76,6 @@ To authenticate with the API you first need to retrieve an API user token for th
     
             {
                 "id": 1,
-                "description": "USER_TOKEN_DESCRIPTION",
                 "token": "USER_TOKEN_TOKEN",
                 "created": "YYYY-MM-DDTHH:MM:SSZ",
                 "enabled": true,
@@ -119,17 +118,17 @@ Resources related to the currently authenticated user. If you are not authentica
             {
                 "id": 1,
                 "username": "USER_USERNAME",
+                "email": "USER_EMAIL",
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "enabled": true,
                 "name": "USER_NAME",
                 "location": "USER_LOCATION",
-                "email": "USER_EMAIL",
                 "roles": [
                     {
                         "name": "ROLE_NAME",
                         "role": "ROLE_ROLE"
                     }
                 ],
-                "created": "YYYY-MM-DDTHH:MM:SSZ",
-                "enabled": true,
                 "_links": {
                     "self": {
                         "href": "/user"
@@ -160,12 +159,12 @@ Resources related to the currently authenticated user. If you are not authentica
 
 ### Update the authenticated User [PATCH]
 
-Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
+Properties available to update:
 
-| Path     | Type   | Required | Value Example   | Description              |
-|----------|--------|----------|-----------------|--------------------------|
-| name     | string | false    | John Doe        | The real name of a user  |
-| location | string | false    | Leeds, UK       | The location of the user |
+| Path     | Type   | Required | Value Example     | Description              |
+|----------|--------|----------|-------------------|--------------------------|
+| name     | string | false    | Jon Snow          | The real name of a user  |
+| location | string | false    | South of the Wall | The location of the user |
 
 + Request (application/json)
     + Header
@@ -175,10 +174,10 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
 
     + Body
     
-            [
-                { "op": "replace", "path": "name", "value": "John Doe" },
-                { "op": "add", "path": "location", "value": "Leeds, UK" }
-            ]
+            {
+                "name": "Jon Snow",
+                "location": "South of the Wall"
+            }
 
 + Response 200 (application/hal+json)
 
@@ -302,7 +301,6 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
                     "tokens": [
                         {
                             "id": 1,
-                            "description": "USER_TOKEN_DESCRIPTION",
                             "token": "USER_TOKEN_TOKEN",
                             "created": "YYYY-MM-DDTHH:MM:SSZ",
                             "enabled": true,
@@ -314,7 +312,7 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
                                     "href": "/applications/1"
                                 },
                                 "token:user": {
-                                    "href": "/users/1"
+                                    "href": "/users/USER_USERNAME"
                                 }
                             },
                             "_embedded": {
@@ -356,7 +354,6 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
     
             {
                 "id": 1,
-                "description": "USER_TOKEN_DESCRIPTION",
                 "token": "USER_TOKEN_TOKEN",
                 "created": "YYYY-MM-DDTHH:MM:SSZ",
                 "enabled": true,
@@ -368,7 +365,7 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
                         "href": "/applications/1"
                     },
                     "token:user": {
-                        "href": "/users/1"
+                        "href": "/users/USER_USERNAME"
                     }
                 },
                 "_embedded": {
@@ -398,34 +395,6 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
 + Response 200
     
     [Token][]
-
-### Update an authenticated User's Token [PATCH]
-
-Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
-
-| Path        | Type    | Required | Value Example | Description         |
-|-------------|---------|----------|---------------|---------------------|
-| description | string  | false    | Office token  | Token description   |
-| enabled     | boolean | false    | true          | If token is enabled |
-
-+ Request (application/json)
-    + Header
-    
-            X-API-App-Token: Application token
-            X-API-User-Token: User token
-
-    + Body
-    
-            [
-                { "op": "replace", "path": "description", "value": "Example" },
-                { "op": "remove", "path": "description" },
-                { "op": "add", "path": "description", "value": "Example" }
-            ]
-
-+ Response 200
-    
-    [Token][]
-
 
 ### Remove an authenticated User's Token [DELETE]
 
