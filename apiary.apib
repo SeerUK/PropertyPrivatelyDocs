@@ -548,10 +548,11 @@ Public resources related to applications.
 
 Request body parameters:
 
-| Name        | Type   | Required | Value Example | Description         |
-|-------------|--------|----------|---------------|---------------------|
-| name        | string | true     | Test app      | App name            |
-| description | string | false    | Test app desc | App description     |
+| Name        | Type    | Required | Value Example | Description         |
+|-------------|---------|----------|---------------|---------------------|
+| name        | string  | true     | Test app      | App name            |
+| description | string  | false    | Test app desc | App description     |
+| enabled     | boolean | false    | true          | If app is enabled   |
 
 + Request (application/json)
     + Header
@@ -588,17 +589,7 @@ Request body parameters:
 + Parameters
     + id (required, number, `1`) ... Numeric `id` of the Application to perform action with.
 
-### Retrieve an Application [GET]
-
-*NOTE*: Authentication is not required for this resource, therefore the request headers do not *need* to be sent. For security; if the consumer of the API is authenticated as the owner of an Application the `token` of the Application will be displayed in the response. Otherwise, no `token` field shall be present.
-
-+ Request
-    + Header
-    
-            X-API-App-Token: Application token
-            X-API-User-Token: User token
-
-+ Response 200 (application/hal+json)
++ Model (application/hal+json)
     + Body
     
             {
@@ -615,15 +606,29 @@ Request body parameters:
                 }
             }
 
+### Retrieve an Application [GET]
+
+*NOTE*: Authentication is not required for this resource, therefore the request headers do not *need* to be sent. For security; if the consumer of the API is authenticated as the owner of an Application the `token` of the Application will be displayed in the response. Otherwise, no `token` field shall be present.
+
++ Request
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
++ Response 200 
+
+    [Application][]
+
 ### Update an Application [PATCH]
 
-Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
+Request body parameters:
 
-| Path        | Type    | Required | Value Example | Description             |
-|-------------|---------|----------|---------------|-------------------------|
-| name        | string  | false    | Test app      | App name                |
-| description | string  | false    | For testing   | App description         |
-| enabled     | boolean | false    | true          | If the app is enabled   |
+| Name        | Type    | Required | Value Example | Description         |
+|-------------|---------|----------|---------------|---------------------|
+| name        | string  | false    | Test app      | App name            |
+| description | string  | false    | Test app desc | App description     |
+| enabled     | boolean | false    | true          | If app is enabled   |
 
 + Request (application/json)
     + Header
@@ -638,22 +643,9 @@ Available [JSON PATCH](https://tools.ietf.org/html/rfc6902) paths:
                 { "op": "add", "path": "location", "value": "Leeds, UK" }
             ]
 
-+ Response 200 (application/hal+json)
-    + Body
-    
-            {
-                "id": 1,
-                "name": "APPLICATION_NAME",
-                "description": "APPLICATION_DESCRIPTION",
-                "token": "APPLICATION_TOKEN",
-                "created": "YYYY-MM-DDTHH:MM:SSZ",
-                "enabled": true,
-                "_links": {
-                    "self": {
-                        "href": "/applications/1"
-                    }
-                }
-            }
++ Response 200 
+
+    [Application][]
 
 
 ### Remove an Application [DELETE]
