@@ -638,10 +638,11 @@ Request body parameters:
 
     + Body
     
-            [
-                { "op": "replace", "path": "name", "value": "John Doe" },
-                { "op": "add", "path": "location", "value": "Leeds, UK" }
-            ]
+            {
+                "name": "APPLICATION_NAME",
+                "description": "APPLICATION_DESCRIPTION",
+                "enabled": false
+            }
 
 + Response 200 
 
