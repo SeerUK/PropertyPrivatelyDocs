@@ -662,3 +662,120 @@ Request body parameters:
             X-API-User-Token: User token
 
 + Response 204
+
+# Group Properties
+
+Public and private resource related to Property entities.
+
+## Root [/properties]
+### Retrieve Directory [GET]
+
++ Response 200 (application/hal+json)
+    + Body
+    
+            {
+                "_links": {
+                    "self": {
+                        "href": "/properties"
+                    },
+                    "properties:property": {
+                        "href": "/properties/{id}",
+                        "templated": true
+                    }
+                }
+            }
+
+### Create a Property [POST]
+
+Request body parameters:
+
+| Name        | Type    | Required | Value Example  | Description          |
+|-------------|---------|----------|----------------|----------------------|
+| title       | string  | true     | Test prop      | Property name        |
+| description | string  | false    | Test prop desc | Property description |
+
++ Request (application/json)
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
+    + Body
+    
+            {
+                "title": "PROPERTY_TITLE",
+                "description": "PROPERTY_DESCRIPTION"
+            }
+
++ Response 201 (application/hal+json)
+    + Body
+    
+            {
+                "id": 1,
+                "title": "PROPERTY_TITLE",
+                "description": "PROPERTY_DESCRIPTION",
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "_links": {
+                    "self": {
+                        "href": "/properties/1"
+                    },
+                    "property:images": {
+                        "href": "/properties/1/images"
+                    }
+                }
+            }
+
+## Property [/properties/{id}]
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Property to perform action with.
+
++ Model (application/hal+json)
+    + Body
+    
+            {
+                "id": 1,
+                "title": "PROPERTY_TITLE",
+                "description": "PROPERTY_DESCRIPTION",
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "_links": {
+                    "self": {
+                        "href": "/properties/1"
+                    },
+                    "property:images": {
+                        "href": "/properties/1/images"
+                    }
+                }
+            }
+
+### Retrieve a Property [GET]
+
++ Repsonse 200
+
+    [Property][]
+
+### Update a Property [PATCH]
+
+Request body parameters:
+
+| Name        | Type    | Required | Value Example  | Description          |
+|-------------|---------|----------|----------------|----------------------|
+| title       | string  | true     | Test prop      | Property name        |
+| description | string  | false    | Test prop desc | Property description |
+
++ Request (application/json)
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
+    + Body
+    
+            {
+                "title": "PROPERTY_TITLE",
+                "description": "PROPERTY_DESCRIPTION"
+            }
+
++ Response 200
+
+    [Property][]

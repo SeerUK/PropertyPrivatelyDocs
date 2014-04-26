@@ -32,7 +32,7 @@ Entities that are directly related, but have context without that relationship b
 ### Users (Public resources)
 
 ```
-/users                                              [GET]
+/users                                              [GET, POST]
 /users/:user                                        [GET]
 /users/:user/properties                             [GET]
 ```
