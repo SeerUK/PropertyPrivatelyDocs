@@ -1213,10 +1213,26 @@ Request body parameters:
 
 # Group Sales
 
-
+Public and private resource related to Sale entities.
 
 ## Root [/sales]
 ### Retrieve Directory [GET]
+
++ Response 200 (application/hal+json)
+    + Body
+    
+            {
+                "_links": {
+                    "self": {
+                        href": "/sales"
+                    },
+                    "sales:sale": {
+                        "href": "/sales/{id}",
+                        "templated": true,
+                        "name": "Specific Sale"
+                    }
+                }
+            }
 
 ## Sale [/sales/{id}]
 
@@ -1224,6 +1240,10 @@ Request body parameters:
     + id (required, number, `1`) ... Numeric `id` of the Sale to perform action with.
 
 ### Retrieve a Sale [GET]
+
++ Response 200
+
+    [Property Sale][]
 
 ## Offer Collection [/sales/{saleId}/offers]
 
