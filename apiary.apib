@@ -1176,6 +1176,31 @@ Request body parameters:
     [Property Sale][]
 
 ### Update a Property Sale [PATCH]
+
+Request body parameters:
+
+| Name    | Type    | Required | Value Example | Description         |
+|---------|---------|----------|---------------|---------------------|
+| price   | integer | true     | 10000000      | Price (in pence)    |
+| enabled | integer | false    | true          | If sale is active   |
+
++ Request (application/json)
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
+    + Body
+    
+            {
+                "price": SALE_PRICE,
+                "enabled": true
+            }
+
++ Response 201
+
+    [Property Sale][]
+
 ### Remove a Property Sale [DELETE]
 
 + Request
