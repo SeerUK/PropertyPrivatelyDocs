@@ -1241,9 +1241,25 @@ Public and private resource related to Sale entities.
 
 ### Retrieve a Sale [GET]
 
-+ Response 200
++ Response 200 (application/hal+json)
 
-    [Property Sale][]
+            {
+                "id": 1,
+                "price": SALE_PRICE,
+                "start": "YYYY-MM-DDTHH:MM:SSZ",
+                "end": "YYYY-MM-DDTHH:MM:SSZ",
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "enabled": true,
+                "active": true,
+                "_links": {
+                    "self": {
+                        "href": "/sales/1"
+                    },
+                    "sale:property": {
+                        "href": "/properties/1"
+                    }
+                }
+            }
 
 ## Offer Collection [/sales/{saleId}/offers]
 
@@ -1251,7 +1267,84 @@ Public and private resource related to Sale entities.
     + saleId (required, number, `1`) ... Numeric `id` of the Sale to perform action with.
 
 ### List all of the Sale's Offers [GET]
+
++ Response 200 (application/hal+json)
+    + Body
+    
+            {
+                "total": 1,
+                "_links": {
+                    "self": {
+                        "href": "/sales/1/offers"
+                    },
+                    "offers:property": {
+                        "href": "/properties/1"
+                    },
+                    "offers:sale": {
+                        "href": "/sales/1"
+                    }
+                },
+                "_embedded": {
+                    "offers": [
+                        {
+                            "id": 1,
+                            "offer": OFFER_OFFER,
+                            "created": "YYYY-MM-DDTHH:MM:SSZ",
+                            "_links": {
+                                "self": {
+                                    "href": "/sales/1/offers/1"
+                                },
+                                "offer:user": {
+                                    "href": "/users/USER_USERNAME"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+
 ### Create a Sale Offer [POST]
+
+Request body parameters:
+
+| Name    | Type    | Required | Value Example | Description         |
+|---------|---------|----------|---------------|---------------------|
+| offer   | integer | true     | 10000000      | Offer (in pence)    |
+
++ Request (application/json)
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
+    + Body
+    
+            {
+                "offer": OFFER_OFFER
+            }
+
++ Response 201 (application/hal+json)
+    + Body
+    
+            {
+                "id": 1,
+                "offer": OFFER_OFFER,
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "_links": {
+                    "offer:user": {
+                        "href": "/users/USER_USERNAME"
+                    },
+                    "self": {
+                        "href": "/sales/1/offers/1"
+                    },
+                    "offer:property": {
+                        "href": "/properties/1"
+                    },
+                    "offer:sale": {
+                        "href": "/sales/1"
+                    }
+                }
+            }
 
 ## Offer [/sales/{saleId}/offers/{offerId}]
 
@@ -1259,12 +1352,31 @@ Public and private resource related to Sale entities.
     + saleId (required, number, `1`) ... Numeric `id` of the Sale to perform action with.
     + offerId (required, number, `1`) ... Numeric `id` of the Offer to perform action with.
 
-+ Model (application/hal+json)
+### Retrieve a Sale Offer [GET]
+
++ Response 200 (application/hal+json)
     + Body
     
+            {
+                "id": 1,
+                "offer": OFFER_OFFER,
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "_links": {
+                    "offer:user": {
+                        "href": "/users/USER_USERNAME"
+                    },
+                    "self": {
+                        "href": "/sales/1/offers/1"
+                    },
+                    "offer:property": {
+                        "href": "/properties/1"
+                    },
+                    "offer:sale": {
+                        "href": "/sales/1"
+                    }
+                }
+            }
 
-
-### Retrieve a Sale Offer [GET]
 ### Remove a Sale Offer [DELETE]
 
 + Request
