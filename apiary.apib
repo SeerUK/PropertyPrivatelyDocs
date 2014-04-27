@@ -278,7 +278,7 @@ Properties available to update:
                 }
             }
 
-## Sales Collectrion [/user/sales]
+## Sales Collection [/user/sales]
 ### List the authenticated User's Sales [GET]
 
 + Request
@@ -880,7 +880,12 @@ Request body parameters:
     
             {
                 "title": "PROPERTY_TITLE",
-                "description": "PROPERTY_DESCRIPTION"
+                "description": "PROPERTY_DESCRIPTION",
+                "buildingName": "ADDRESS_BUILDING_NAME",
+                "address1": "ADDRESS_LINE_1",
+                "address2": "ADDRESS_LINE_2",
+                "town": "ADDRESS_TOWN",
+                "postcode": "ADDRESS_POSTCODE",
             }
 
 + Response 200
@@ -896,3 +901,163 @@ Request body parameters:
             X-API-User-Token: User token
 
 + Response 204
+
+## Images Collection [/properties/{propId}/images]
+
++ Parameters
+    + propId (required, number, `1`) ... Numeric `id` of the Property to perform action with.
+
+### List all of the Property's Images [GET]
+
++ Response 200 (application/hal+json)
+    + Body
+    
+            {
+                "total": 1,
+                "_links": {
+                    "self": {
+                        "href": "/properties/1/images"
+                    },
+                    "images:image": {
+                        "href": "/properties/{propId}/images/{imageId}",
+                        "templated": true,
+                        "name": "Specific Image"
+                    }
+                },
+                "_embedded": {
+                    "images": [
+                        {
+                            "id": 1,
+                            "description": "IMAGE_DESCRIPTION",
+                            "path": "IMAGE_PATH",
+                            "displayOrder": 1,
+                            "filename": "IMAGE_FILENAME",
+                            "_links": {
+                                "self": {
+                                    "href": "/properties/1/images/1"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+
+### Create a Property Image [POST]
+
+This one is a little different, it's a regular form submission, not JSON:
+
+| Name         | Type    | Required | Value Example  | Description     |
+|--------------|---------|----------|----------------|-----------------|
+| file         | file    | true     | N/A            | JPEG Image File |
+
++ Request
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
++ Response 201 (application/hal+json)
+    + Body
+    
+            {
+                "id": 1,
+                "description": "IMAGE_DESCRIPTION",
+                "path": "IMAGE_PATH",
+                "displayOrder": 1,
+                "filename": "IMAGE_FILENAME",
+                "_links": {
+                    "self": {
+                        "href": "/properties/1/images/1"
+                    },
+                    "image:property": {
+                        "href": "/properties/1"
+                    }
+                },
+                "_embedded": {
+                    "property": {
+                        "id": 1,
+                        "title": "PROPERTY_TITLE",
+                        "description": "PROPERTY_DESCRIPTION",
+                        "created": "YYYY-MM-DDTHH:MM:SSZ",
+                        "_links": {
+                            "self": {
+                                "href": "/properties/1"
+                            }
+                        }
+                    }
+                }
+            }
+
+## Image [/properties/{propId}/images/{imageId}]
+
++ Parameters
+    + propId (required, number, `1`) ... Numeric `id` of the Property to perform action with.
+    + imageId (required, number, `1`) ... Numeric `id` of the Image to perform action with.
+
++ Model (application/hal+json)
+    + Body
+    
+            {
+                "id": 1,
+                "description": "IMAGE_DESCRIPTION",
+                "path": "IMAGE_PATH",
+                "displayOrder": 1,
+                "filename": "IMAGE_FILENAME",
+                "_links": {
+                    "self": {
+                        "href": "/properties/1/images/1"
+                    },
+                    "image:property": {
+                        "href": "/properties/1"
+                    }
+                },
+                "_embedded": {
+                    "property": {
+                        "id": 1,
+                        "title": "PROPERTY_TITLE",
+                        "description": "PROPERTY_DESCRIPTION",
+                        "created": "YYYY-MM-DDTHH:MM:SSZ",
+                        "_links": {
+                            "self": {
+                                "href": "/properties/1"
+                            }
+                        }
+                    }
+                }
+            }
+
+### Retrieve a Property Image [GET]
+
++ Response 200
+
+    [Image][]
+
+### Update a Property Image [PATCH]
+### Remove a Property Image [DELETE]
+
+## Property Sale Collection [/properties/{propId}/sales]
+### List all of the Property's Sales [GET]
+### Create a Property Sale [POST]
+
+## Property Sale [/properties/{propId}/sales/{saleId}]
+### Retrieve a Property Sale [GET]
+### Update a Property Sale [PATCH]
+### Remove a Property Sale [DELETE]
+
+# Group Sales
+
+
+
+## Root [/sales]
+### Retrieve Directory [GET]
+
+## Sale [/sales/{id}]
+### Retrieve a Sale [GET]
+
+## Offer Collection [/sales/{saleId}/offers]
+### List all of the Sale's Offers [GET]
+### Create a Sale Offer [POST]
+
+## Offer [/sales/{saleId}/offers/{offerId}]
+### Retrieve a Sale Offer [GET]
+### Remove a Sale Offer [DELETE]
