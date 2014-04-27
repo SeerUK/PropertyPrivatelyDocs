@@ -765,10 +765,15 @@ Public and private resource related to Property entities.
 
 Request body parameters:
 
-| Name        | Type    | Required | Value Example  | Description          |
-|-------------|---------|----------|----------------|----------------------|
-| title       | string  | true     | Test prop      | Property name        |
-| description | string  | false    | Test prop desc | Property description |
+| Name         | Type    | Required | Value Example  | Description            |
+|--------------|---------|----------|----------------|------------------------|
+| title        | string  | true     | Test prop      | Property name          |
+| description  | string  | true     | Test prop desc | Property description   |
+| buildingName | string  | false    | Building name  | Address building name  |
+| address1     | string  | true     | 1 Fake Road    | Address address line 1 |
+| address2     | string  | false    | Fakeville      | Address address line 2 |
+| town         | string  | true     | Faketown       | Address town           |
+| postcode     | string  | true     | FK101AB        | Address postcode       |
 
 + Request (application/json)
     + Header
@@ -780,7 +785,12 @@ Request body parameters:
     
             {
                 "title": "PROPERTY_TITLE",
-                "description": "PROPERTY_DESCRIPTION"
+                "description": "PROPERTY_DESCRIPTION",
+                "buildingName": "ADDRESS_BUILDING_NAME",
+                "address1": "ADDRESS_LINE_1",
+                "address2": "ADDRESS_LINE_2",
+                "town": "ADDRESS_TOWN",
+                "postcode": "ADDRESS_POSTCODE",
             }
 
 + Response 201 (application/hal+json)
@@ -791,12 +801,20 @@ Request body parameters:
                 "title": "PROPERTY_TITLE",
                 "description": "PROPERTY_DESCRIPTION",
                 "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "buildingName": "ADDRESS_BUILDING_NAME",
+                "address1": "ADDRESS_LINE_1",
+                "address2": "ADDRESS_LINE_2",
+                "town": "ADDRESS_TOWN",
+                "postcode": "ADDRESS_POSTCODE",
                 "_links": {
                     "self": {
                         "href": "/properties/1"
                     },
                     "property:images": {
                         "href": "/properties/1/images"
+                    },
+                    "property:sales": {
+                        "href": "/properties/1/sales"
                     }
                 }
             }
@@ -814,12 +832,20 @@ Request body parameters:
                 "title": "PROPERTY_TITLE",
                 "description": "PROPERTY_DESCRIPTION",
                 "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "buildingName": "ADDRESS_BUILDING_NAME",
+                "address1": "ADDRESS_LINE_1",
+                "address2": "ADDRESS_LINE_2",
+                "town": "ADDRESS_TOWN",
+                "postcode": "ADDRESS_POSTCODE",
                 "_links": {
                     "self": {
                         "href": "/properties/1"
                     },
                     "property:images": {
                         "href": "/properties/1/images"
+                    },
+                    "property:sales": {
+                        "href": "/properties/1/sales"
                     }
                 }
             }

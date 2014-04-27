@@ -11,9 +11,9 @@ Y - `/sales`                              - [GET]
 Y - `/sales/:saleId`                      - [GET]
 Y - `/sales/:saleId/offers`               - [GET, POST]
 Y - `/sales/:saleId/offers/:offerId`      - [GET, DELETE]
-Y - `/user/properties`                    - [GET]
-Y - `/user/sales`                         - [GET]
-Y - `/users/:username/sales`              - [GET]
+YY - `/user/properties`                    - [GET]
+YY - `/user/sales`                         - [GET]
+YY - `/users/:username/sales`              - [GET]
 
 Offers:
 
