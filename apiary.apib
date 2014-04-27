@@ -892,7 +892,7 @@ Request body parameters:
 
     [Property][]
 
-### Remove an Property [DELETE]
+### Remove a Property [DELETE]
 
 + Request
     + Header
@@ -1033,16 +1033,158 @@ This one is a little different, it's a regular form submission, not JSON:
     [Image][]
 
 ### Update a Property Image [PATCH]
+
+Request body parameters:
+
+| Name        | Type   | Required | Value Example  | Description       |
+|-------------|--------|----------|----------------|-------------------|
+| description | string | true     | Image desc     | Image description |
+
++ Request (application/json)
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
+    + Body
+    
+            {
+                "description": "IMAGE_DESCRIPTION"
+            }
+
++ Response 200
+
+    [Image][]
+
 ### Remove a Property Image [DELETE]
+
++ Request
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
++ Response 204
 
 ## Property Sale Collection [/properties/{propId}/sales]
 ### List all of the Property's Sales [GET]
+
++ Response 200 (application/hal+json)
+    + Body
+    
+            {
+                "total": 1,
+                "_links": {
+                    "self": {
+                        "href": "/properties/1/sales"
+                    }
+                },
+                "_embedded": {
+                    "sales": [
+                        {
+                            "id": 1,
+                            "price": SALE_PRICE,
+                            "start": "YYYY-MM-DDTHH:MM:SSZ",
+                            "end": "YYYY-MM-DDTHH:MM:SSZ",
+                            "created": "YYYY-MM-DDTHH:MM:SSZ",
+                            "enabled": true,
+                            "active": true,
+                            "_links": {
+                                "self": {
+                                    "href": "/sales/1"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+
 ### Create a Property Sale [POST]
 
+Request body parameters:
+
+| Name    | Type    | Required | Value Example | Description         |
+|---------|---------|----------|---------------|---------------------|
+| price   | integer | true     | 10000000      | Price (in pence)    |
+| enabled | integer | false    | true          | If sale is active   |
+
++ Request (application/json)
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
+    + Body
+    
+            {
+                "price": SALE_PRICE,
+                "enabled": true
+            }
+
++ Response 200 (application/hal+json)
+    + Body
+    
+            {
+                "id": 1,
+                "price": SALE_PRICE,
+                "start": "YYYY-MM-DDTHH:MM:SSZ",
+                "end": "YYYY-MM-DDTHH:MM:SSZ",
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "enabled": true,
+                "active": true,
+                "_links": {
+                    "self": {
+                        "href": "/sales/1"
+                    },
+                    "sale:property": {
+                        "href": "/properties/1"
+                    }
+                }
+            }
+
 ## Property Sale [/properties/{propId}/sales/{saleId}]
+
++ Parameters
+    + propId (required, number, `1`) ... Numeric `id` of the Property to perform action with.
+    + saleId (required, number, `1`) ... Numeric `id` of the Sale to perform action with.
+
++ Model (application/hal+json)
+    + Body
+    
+            {
+                "id": 1,
+                "price": SALE_PRICE,
+                "start": "YYYY-MM-DDTHH:MM:SSZ",
+                "end": "YYYY-MM-DDTHH:MM:SSZ",
+                "created": "YYYY-MM-DDTHH:MM:SSZ",
+                "enabled": true,
+                "active": true,
+                "_links": {
+                    "self": {
+                        "href": "/sales/1"
+                    },
+                    "sale:property": {
+                        "href": "/properties/1"
+                    }
+                }
+            }
+
 ### Retrieve a Property Sale [GET]
+
++ Response 200
+
+    [Property Sale][]
+
 ### Update a Property Sale [PATCH]
 ### Remove a Property Sale [DELETE]
+
++ Request
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
++ Response 204
 
 # Group Sales
 
@@ -1052,12 +1194,38 @@ This one is a little different, it's a regular form submission, not JSON:
 ### Retrieve Directory [GET]
 
 ## Sale [/sales/{id}]
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Sale to perform action with.
+
 ### Retrieve a Sale [GET]
 
 ## Offer Collection [/sales/{saleId}/offers]
+
++ Parameters
+    + saleId (required, number, `1`) ... Numeric `id` of the Sale to perform action with.
+
 ### List all of the Sale's Offers [GET]
 ### Create a Sale Offer [POST]
 
 ## Offer [/sales/{saleId}/offers/{offerId}]
+
++ Parameters
+    + saleId (required, number, `1`) ... Numeric `id` of the Sale to perform action with.
+    + offerId (required, number, `1`) ... Numeric `id` of the Offer to perform action with.
+
++ Model (application/hal+json)
+    + Body
+    
+
+
 ### Retrieve a Sale Offer [GET]
 ### Remove a Sale Offer [DELETE]
+
++ Request
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
++ Response 204
