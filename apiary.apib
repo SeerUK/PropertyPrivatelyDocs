@@ -852,7 +852,7 @@ Request body parameters:
 
 ### Retrieve a Property [GET]
 
-+ Repsonse 200
++ Response 200
 
     [Property][]
 
@@ -860,10 +860,15 @@ Request body parameters:
 
 Request body parameters:
 
-| Name        | Type    | Required | Value Example  | Description          |
-|-------------|---------|----------|----------------|----------------------|
-| title       | string  | true     | Test prop      | Property name        |
-| description | string  | false    | Test prop desc | Property description |
+| Name         | Type    | Required | Value Example  | Description            |
+|--------------|---------|----------|----------------|------------------------|
+| title        | string  | true     | Test prop      | Property name          |
+| description  | string  | true     | Test prop desc | Property description   |
+| buildingName | string  | false    | Building name  | Address building name  |
+| address1     | string  | true     | 1 Fake Road    | Address address line 1 |
+| address2     | string  | false    | Fakeville      | Address address line 2 |
+| town         | string  | true     | Faketown       | Address town           |
+| postcode     | string  | true     | FK101AB        | Address postcode       |
 
 + Request (application/json)
     + Header
