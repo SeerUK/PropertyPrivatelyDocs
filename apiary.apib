@@ -46,6 +46,9 @@ The root is the starting point for the API. When used with a HAL browser it make
                     "pp:properties": {
                         "href": "/properties"
                     },
+                    "pp:sales": {
+                        "href": "/sales"
+                    },
                     "pp:user": {
                         "href": "/user"
                     },
@@ -139,6 +142,9 @@ Resources related to the currently authenticated user. If you are not authentica
                     "user:properties": {
                         "href": "/user/properties"
                     },
+                    "user:sales": {
+                        "href": "/user/sales"
+                    },
                     "user:tokens": {
                         "href": "/user/tokens"
                     }
@@ -227,7 +233,7 @@ Properties available to update:
             }
 
 ## Properties Collection [/user/properties]
-### List the authenticated User's Properties (TODO) [GET]
+### List the authenticated User's Properties [GET]
 
 + Request
     + Header
@@ -242,21 +248,68 @@ Properties available to update:
                 "total" 1,
                 "_links": {
                     "self": {
-                        "href": "/user/applications"
+                        "href": "/user/properties"
+                    },
+                    "properties:property": {
+                        "href": "/properties/{id}",
+                        "templated": true,
+                        "name": "Specific Property"
                     }
                 },
                 "_embedded": {
                     "properties": [
                         {
                             "id": 1,
-                            "name": "USER_APPLICATION_NAME",
-                            "description": "USER_APPLICATION_DESCRIPTION",
-                            "token": "USER_APPLICATION_TOKEN",
+                            "title": "PROPERTY_NAME",
+                            "description": "PROPERTY_DESCRIPTION",
                             "created": "YYYY-MM-DDTHH:MM:SSZ",
-                            "enabled": true,
+                            "buildingName": "ADDRESS_BUILDING_NAME",
+                            "address1": "ADDRESS_LINE_1",
+                            "address2": "ADDRESS_LINE_2",
+                            "town": "ADDRESS_TOWN",
+                            "postcode": "ADDRESS_POSTCODE",
                             "_links": {
                                 "self": {
-                                    "href": "/applications/1"
+                                    "href": "/properties/1"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+
+## Sales Collectrion [/user/sales]
+### List the authenticated User's Sales [GET]
+
++ Request
+    + Header
+    
+            X-API-App-Token: Application token
+            X-API-User-Token: User token
+
++ Response 200 (application/hal+json)
+    + Body
+    
+            {
+                "total": 1,
+                "_links": {
+                    "self": {
+                        "href": "/users/Seer/sales"
+                    }
+                },
+                "_embedded": {
+                    "sales": [
+                        {
+                            "id": 10,
+                            "price": 100000000,
+                            "start": "2014-04-26T18:09:45+0100",
+                            "end": "2014-05-26T18:09:45+0100",
+                            "created": "2014-04-26T18:09:45+0100",
+                            "enabled": true,
+                            "active": true,
+                            "_links": {
+                                "self": {
+                                    "href": "/sales/10"
                                 }
                             }
                         }
@@ -472,8 +525,8 @@ Request body parameters:
                     "self": {
                         "href": "/users/USER_USERNAME"
                     },
-                    "users:properties": {
-                        "href": "/users/USER_USERNAME/properties"
+                    "users:sales": {
+                        "href": "/users/USER_USERNAME/sales"
                     }
                 }
             }
@@ -512,18 +565,41 @@ Request body parameters:
                 }
             }
 
-## User Properties Collection [/user/{username}/properties]
+## User Sales Collection [/user/{username}/sales]
 
 + Parameters
     + username (required, string, `User123`) ... String `username` of the User to perform action with.
 
-### Retrieve a User's Properties [GET]
+### Retrieve a User's Sales [GET]
 
 + Response 200 (application/hal+json)
     + Body
     
             {
-                "todo": "NYI"
+                "total": 1,
+                "_links": {
+                    "self": {
+                        "href": "/users/Seer/sales"
+                    }
+                },
+                "_embedded": {
+                    "sales": [
+                        {
+                            "id": 10,
+                            "price": 100000000,
+                            "start": "2014-04-26T18:09:45+0100",
+                            "end": "2014-05-26T18:09:45+0100",
+                            "created": "2014-04-26T18:09:45+0100",
+                            "enabled": true,
+                            "active": true,
+                            "_links": {
+                                "self": {
+                                    "href": "/sales/10"
+                                }
+                            }
+                        }
+                    ]
+                }
             }
 
 # Group Applications
