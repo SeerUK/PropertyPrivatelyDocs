@@ -3,7 +3,7 @@ HOST: http://api.propertyprivately.co/
 
 # Property Privately API
 
-The Property Privately API is based on REST principles, with support for HAL. This API is part of the product for the final year project and dissertation of Elliot Wright for BSc ICT S/w route. 
+The Property Privately API is based on REST principles, with support for HAL. This API is part of the product for the final year project and dissertation of Elliot Wright for BSc ICT S/w route.
 
 This API is designed to contain the main concepts of REST, and standards that go with REST to aid in API consumption such as HAL in order to practically investigate their application in modern web services.
 
@@ -29,9 +29,9 @@ The root is the starting point for the API. When used with a HAL browser it make
 ## Root [/]
 ### Retrieve Directory [GET]
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
     + Body
-    
+
             {
                 "_links": {
                     "self": {
@@ -60,23 +60,23 @@ The root is the starting point for the API. When used with a HAL browser it make
 
 # Group Authentication
 
-To authenticate with the API you first need to retrieve an API user token for the application you're currently using. Before authenticating with the API you must have a valid, enabled application token. 
+To authenticate with the API you first need to retrieve an API user token for the application you're currently using. Before authenticating with the API you must have a valid, enabled application token.
 
 ## Authenticate [/auth]
 ### Create a User Token [POST]
 
 + Request (application/json)
     + Header
-    
-            X-API-App-Token: Application token 
+
+            X-API-App-Token: Application token
 
     + Body
-    
+
             { "username": "User123", "password": "Password123" }
 
-+ Response 201 (application/hal+json)
++ Response 201 (application/json)
     + Body
-    
+
             {
                 "id": 1,
                 "token": "USER_TOKEN_TOKEN",
@@ -115,9 +115,9 @@ Resources related to the currently authenticated user. If you are not authentica
 
 ## User [/user]
 
-+ Model (application/hal+json)
++ Model (application/json)
     + Body
-    
+
             {
                 "id": 1,
                 "username": "USER_USERNAME",
@@ -155,7 +155,7 @@ Resources related to the currently authenticated user. If you are not authentica
 
 + Request
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
@@ -174,18 +174,18 @@ Properties available to update:
 
 + Request (application/json)
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
     + Body
-    
+
             {
                 "name": "Jon Snow",
                 "location": "South of the Wall"
             }
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
     [User][]
 
@@ -194,13 +194,13 @@ Properties available to update:
 
 + Request
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
     + Body
-    
+
             {
                 "total" 1,
                 "_links": {
@@ -232,18 +232,31 @@ Properties available to update:
                 }
             }
 
+    + Schema
+    
+            {
+                "type": "object",
+                "required": false,
+                "properties": {
+                    "total": {
+                        "type": "integer",
+                        "required": true
+                    }
+                }
+            }
+
 ## Properties Collection [/user/properties]
 ### List the authenticated User's Properties [GET]
 
 + Request
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
-+ Response 200 (application/hal+json)
-    + Body 
-    
++ Response 200 (application/json)
+    + Body
+
             {
                 "total" 1,
                 "_links": {
@@ -278,18 +291,31 @@ Properties available to update:
                 }
             }
 
+    + Schema
+    
+            {
+                "type": "object",
+                "required": false,
+                "properties": {
+                    "total": {
+                        "type": "integer",
+                        "required": true
+                    }
+                }
+            }
+
 ## Sales Collection [/user/sales]
 ### List the authenticated User's Sales [GET]
 
 + Request
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
     + Body
-    
+
             {
                 "total": 1,
                 "_links": {
@@ -317,22 +343,31 @@ Properties available to update:
                 }
             }
 
+    + Schema
+    
+            {
+                "type": "object",
+                "required": false,
+                "properties": {
+                    "total": {
+                        "type": "integer",
+                        "required": true
+                    }
+                }
+            }
+
 ## Tokens Collection [/user/tokens{?application}]
-
-+ Parameters
-    + application (optional, number, `1`) ... Numeric `id` of the Application to perform action with.
-
 ### List the authenticated User's Tokens [GET]
 
 + Request
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
     + Body
-    
+
             {
                 "total": 1,
                 "_links": {
@@ -391,7 +426,7 @@ Properties available to update:
 
 + Request
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
@@ -399,12 +434,9 @@ Properties available to update:
 
 ## Token [/user/tokens/{id}]
 
-+ Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Token to perform action with.
-
-+ Model (application/hal+json)
++ Model (application/json)
     + Body
-    
+
             {
                 "id": 1,
                 "token": "USER_TOKEN_TOKEN",
@@ -441,19 +473,19 @@ Properties available to update:
 
 + Request
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
 + Response 200
-    
+
     [Token][]
 
 ### Remove an authenticated User's Token [DELETE]
 
 + Request
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
@@ -466,9 +498,9 @@ Public resources related to users. Collections in this section only contain publ
 ## Root [/users]
 ### Retrieve Directory [GET]
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
     + Body
-    
+
             {
                 "_links": {
                     "self": {
@@ -493,20 +525,20 @@ Request body parameters:
 
 + Request (application/json)
     + Header
-    
+
             X-API-App-Token: Application token
 
     + Body
-    
+
             {
                 "username": "USER_USERNAME",
                 "email": "USER_EMAIL",
                 "password": "USER_PASSWORD"
             }
 
-+ Response 201 (application/hal+json)
++ Response 201 (application/json)
     + Body
-    
+
             {
                 "id": 1,
                 "username": "USER_USERNAME",
@@ -532,15 +564,11 @@ Request body parameters:
             }
 
 ## User [/users/{username}]
-
-+ Parameters
-    + username (required, string, `User123`) ... String `username` of the User to perform action with.
-
 ### Retrieve a User [GET]
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
     + Body
-    
+
             {
                 "id": 1,
                 "username": "USER_USERNAME",
@@ -566,15 +594,11 @@ Request body parameters:
             }
 
 ## User Sales Collection [/user/{username}/sales]
-
-+ Parameters
-    + username (required, string, `User123`) ... String `username` of the User to perform action with.
-
 ### Retrieve a User's Sales [GET]
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
     + Body
-    
+
             {
                 "total": 1,
                 "_links": {
@@ -609,9 +633,9 @@ Public resources related to applications.
 ## Root [/applications]
 ### Retrieve Directory [GET]
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
     + Body
-    
+
             {
                 "_links": {
                     "self": {
@@ -636,20 +660,20 @@ Request body parameters:
 
 + Request (application/json)
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
     + Body
-    
+
             {
                 "name": "APPLICATION_NAME",
                 "description": "APPLICATION_DESCRIPTION"
             }
 
-+ Response 201 (application/hal+json)
++ Response 201 (application/json)
     + Body
-    
+
             {
                 "id": 1,
                 "name": "APPLICATION_NAME",
@@ -666,12 +690,9 @@ Request body parameters:
 
 ## Application [/applications/{id}]
 
-+ Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Application to perform action with.
-
-+ Model (application/hal+json)
++ Model (application/json)
     + Body
-    
+
             {
                 "id": 1,
                 "name": "APPLICATION_NAME",
@@ -692,11 +713,11 @@ Request body parameters:
 
 + Request
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
-+ Response 200 
++ Response 200
 
     [Application][]
 
@@ -712,19 +733,19 @@ Request body parameters:
 
 + Request (application/json)
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
     + Body
-    
+
             {
                 "name": "APPLICATION_NAME",
                 "description": "APPLICATION_DESCRIPTION",
                 "enabled": false
             }
 
-+ Response 200 
++ Response 200
 
     [Application][]
 
@@ -733,7 +754,7 @@ Request body parameters:
 
 + Request
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
@@ -746,9 +767,9 @@ Public and private resource related to Property entities.
 ## Root [/properties]
 ### Retrieve Directory [GET]
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
     + Body
-    
+
             {
                 "_links": {
                     "self": {
@@ -777,25 +798,25 @@ Request body parameters:
 
 + Request (application/json)
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
     + Body
-    
+
             {
                 "title": "PROPERTY_TITLE",
-                "description": "PROPERTY_DESCRIPTION",
+                "description": "PROPERTY_DESCRIPTION_MUST_BE_50_CHARACTERS_OR_MORE_TO_BE_VALID",
                 "buildingName": "ADDRESS_BUILDING_NAME",
                 "address1": "ADDRESS_LINE_1",
                 "address2": "ADDRESS_LINE_2",
                 "town": "ADDRESS_TOWN",
-                "postcode": "ADDRESS_POSTCODE",
+                "postcode": "PSTCODE"
             }
 
-+ Response 201 (application/hal+json)
++ Response 201 (application/json)
     + Body
-    
+
             {
                 "id": 1,
                 "title": "PROPERTY_TITLE",
@@ -812,21 +833,15 @@ Request body parameters:
                     },
                     "property:images": {
                         "href": "/properties/1/images"
-                    },
-                    "property:sales": {
-                        "href": "/properties/1/sales"
                     }
                 }
             }
 
 ## Property [/properties/{id}]
 
-+ Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Property to perform action with.
-
-+ Model (application/hal+json)
++ Model (application/json)
     + Body
-    
+
             {
                 "id": 1,
                 "title": "PROPERTY_TITLE",
@@ -872,12 +887,12 @@ Request body parameters:
 
 + Request (application/json)
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
     + Body
-    
+
             {
                 "title": "PROPERTY_TITLE",
                 "description": "PROPERTY_DESCRIPTION",
@@ -896,22 +911,18 @@ Request body parameters:
 
 + Request
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
 + Response 204
 
 ## Images Collection [/properties/{propId}/images]
-
-+ Parameters
-    + propId (required, number, `1`) ... Numeric `id` of the Property to perform action with.
-
 ### List all of the Property's Images [GET]
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
     + Body
-    
+
             {
                 "total": 1,
                 "_links": {
@@ -952,13 +963,13 @@ This one is a little different, it's a regular form submission, not JSON:
 
 + Request
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
-+ Response 201 (application/hal+json)
++ Response 201 (application/json)
     + Body
-    
+
             {
                 "id": 1,
                 "description": "IMAGE_DESCRIPTION",
@@ -990,13 +1001,9 @@ This one is a little different, it's a regular form submission, not JSON:
 
 ## Image [/properties/{propId}/images/{imageId}]
 
-+ Parameters
-    + propId (required, number, `1`) ... Numeric `id` of the Property to perform action with.
-    + imageId (required, number, `1`) ... Numeric `id` of the Image to perform action with.
-
-+ Model (application/hal+json)
++ Model (application/json)
     + Body
-    
+
             {
                 "id": 1,
                 "description": "IMAGE_DESCRIPTION",
@@ -1042,12 +1049,12 @@ Request body parameters:
 
 + Request (application/json)
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
     + Body
-    
+
             {
                 "description": "IMAGE_DESCRIPTION"
             }
@@ -1060,7 +1067,7 @@ Request body parameters:
 
 + Request
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
@@ -1069,9 +1076,9 @@ Request body parameters:
 ## Property Sale Collection [/properties/{propId}/sales]
 ### List all of the Property's Sales [GET]
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
     + Body
-    
+
             {
                 "total": 1,
                 "_links": {
@@ -1110,20 +1117,20 @@ Request body parameters:
 
 + Request (application/json)
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
     + Body
-    
+
             {
                 "price": SALE_PRICE,
                 "enabled": true
             }
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
     + Body
-    
+
             {
                 "id": 1,
                 "price": SALE_PRICE,
@@ -1144,13 +1151,9 @@ Request body parameters:
 
 ## Property Sale [/properties/{propId}/sales/{saleId}]
 
-+ Parameters
-    + propId (required, number, `1`) ... Numeric `id` of the Property to perform action with.
-    + saleId (required, number, `1`) ... Numeric `id` of the Sale to perform action with.
-
-+ Model (application/hal+json)
++ Model (application/json)
     + Body
-    
+
             {
                 "id": 1,
                 "price": SALE_PRICE,
@@ -1186,12 +1189,12 @@ Request body parameters:
 
 + Request (application/json)
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
     + Body
-    
+
             {
                 "price": SALE_PRICE,
                 "enabled": true
@@ -1205,7 +1208,7 @@ Request body parameters:
 
 + Request
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
@@ -1218,9 +1221,9 @@ Public and private resource related to Sale entities.
 ## Root [/sales]
 ### Retrieve Directory [GET]
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
     + Body
-    
+
             {
                 "_links": {
                     "self": {
@@ -1234,14 +1237,23 @@ Public and private resource related to Sale entities.
                 }
             }
 
+    + Schema
+    
+            {
+                "type": "object",
+                "required": false,
+                "properties": {
+                    "_links": {
+                        "type": "object",
+                        "required": true
+                    }
+                }
+            }
+
 ## Sale [/sales/{id}]
-
-+ Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Sale to perform action with.
-
 ### Retrieve a Sale [GET]
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
 
             {
                 "id": 1,
@@ -1262,15 +1274,11 @@ Public and private resource related to Sale entities.
             }
 
 ## Offer Collection [/sales/{saleId}/offers]
-
-+ Parameters
-    + saleId (required, number, `1`) ... Numeric `id` of the Sale to perform action with.
-
 ### List all of the Sale's Offers [GET]
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
     + Body
-    
+
             {
                 "total": 1,
                 "_links": {
@@ -1313,19 +1321,19 @@ Request body parameters:
 
 + Request (application/json)
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
     + Body
-    
+
             {
                 "offer": OFFER_OFFER
             }
 
-+ Response 201 (application/hal+json)
++ Response 201 (application/json)
     + Body
-    
+
             {
                 "id": 1,
                 "offer": OFFER_OFFER,
@@ -1347,16 +1355,11 @@ Request body parameters:
             }
 
 ## Offer [/sales/{saleId}/offers/{offerId}]
-
-+ Parameters
-    + saleId (required, number, `1`) ... Numeric `id` of the Sale to perform action with.
-    + offerId (required, number, `1`) ... Numeric `id` of the Offer to perform action with.
-
 ### Retrieve a Sale Offer [GET]
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/json)
     + Body
-    
+
             {
                 "id": 1,
                 "offer": OFFER_OFFER,
@@ -1381,7 +1384,7 @@ Request body parameters:
 
 + Request
     + Header
-    
+
             X-API-App-Token: Application token
             X-API-User-Token: User token
 
